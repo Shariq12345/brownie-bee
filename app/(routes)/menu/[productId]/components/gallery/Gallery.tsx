@@ -1,0 +1,31 @@
+import React from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import GalleryContentImage from "./gallery-content-image";
+import GalleryTab from "./gallery-tab";
+
+interface GalleryProps {
+  images: {
+    url: string;
+  }[];
+}
+
+const Gallery = ({ images }: GalleryProps) => {
+  return (
+    <Tabs defaultValue={images[0].url} className="w-full relative">
+      {images.map((tab) => (
+        <TabsContent key={tab.url} value={tab.url.toString()}>
+          <GalleryContentImage url={tab.url} />
+        </TabsContent>
+      ))}
+      <TabsList className="bg-transparent w-full">
+        {images.map((tab) => (
+          <TabsTrigger key={tab.url} value={tab.url.toString()}>
+            <GalleryTab url={tab.url} />
+          </TabsTrigger>
+        ))}
+      </TabsList>
+    </Tabs>
+  );
+};
+
+export default Gallery;

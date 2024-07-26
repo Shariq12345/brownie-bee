@@ -1,13 +1,12 @@
 "use client";
+
 import React from "react";
 import { Products } from "@/types";
-import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Heart, HeartIcon, ShoppingCart } from "lucide-react";
-
-export const revalidate = 0;
+import { Heart, ShoppingCart } from "lucide-react";
+import useCart from "@/hooks/use-cart";
 
 interface FeaturedContentProps {
   data: Products;
@@ -15,89 +14,81 @@ interface FeaturedContentProps {
 
 const FeaturedContent = ({ data }: FeaturedContentProps) => {
   const [isLiked, setIsLiked] = React.useState(false);
+  const cart = useCart();
 
-  const IsLikedIcon = isLiked ? Heart : HeartIcon;
+  const addToCart = (data: Products) => {
+    cart.addItem({ ...data, quantity: 1 });
+  };
 
   const handleLikeToggle = () => {
     setIsLiked(!isLiked);
   };
 
   return (
-    <Card className="w-full max-h-[340px] rounded-md bg-white shadow-lg border border-gray-200 flex flex-col items-center justify-center relative py-8 pt-20 md:pt-28">
-      <div className="absolute -top-[4%] md:-top-[15%] overflow-hidden w-28 md:w-44 h-28 md:h-44 rounded-full bg-rose-100 flex items-center justify-center p-1 md:p-2 shadow-sm">
-        <div className="w-full h-full bg-white rounded-full relative">
-          <Image
-            src={data.images[0].url}
-            fill
-            alt={data.name}
-            className="w-full h-full object-contain"
-          />
-        </div>
-      </div>
-      <Link href={`/menu/${data.id}`} className="w-full px-4 text-center mt-4">
-        <CardTitle className="text-neutral-700 truncate w-full text-xl md:text-2xl font-semibold">
-          {data.name}
-        </CardTitle>
-      </Link>
-
-      <div className="w-full flex items-center justify-center gap-2 flex-wrap px-4 mt-4">
-        {data.flavor && (
-          <div className="rounded-md bg-emerald-500/20 px-2 py-1 text-xs font-semibold capitalize text-emerald-700">
-            {data.flavor}
-          </div>
-        )}
-        {data.category && (
-          <div className="rounded-md bg-rose-500/20 px-2 py-1 text-xs font-semibold capitalize text-rose-700">
-            {data.category}
-          </div>
-        )}
-        {data.weight && (
-          <div className="rounded-md bg-yellow-500/20 px-2 py-1 text-xs font-semibold capitalize text-yellow-700">
-            {data.weight}
-          </div>
-        )}
-      </div>
-
-      {/* <CardDescription className="text-center px-4 my-2 text-sm text-neutral-500">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda minus
-        voluptatum atque iusto esse beatae explicabo ratione impedit repellat
-        amet.
-      </CardDescription> */}
-
-      <div className="w-full flex items-center px-4 mt-4 gap-3">
+    <div className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl">
+      <div className="relative aspect-square">
+        <Image
+          src={data.images[0].url}
+          alt={data.name}
+          layout="fill"
+          objectFit="cover"
+          className="transition-transform duration-300 hover:scale-105"
+        />
         <Button
-          variant={"outline"}
-          className="rounded-full font-bold text-base text-yellow-700 border-yellow-700"
+          onClick={handleLikeToggle}
+          className="absolute top-2 right-2 bg-white/80 hover:bg-white text-pink-500 rounded-full p-2"
         >
-          ₹{data.price}
+          <Heart
+            className={`w-5 h-5 ${isLiked ? "fill-current" : "stroke-current"}`}
+          />
         </Button>
-        <Link href={`/menu/${data.id}`} className="w-full">
-          <Button className="bg-rose-500 w-full rounded-full text-white hover:bg-rose-600">
-            Buy Now
+      </div>
+
+      <div className="p-4">
+        <Link href={`/menu/${data.id}`}>
+          <h3 className="text-lg font-semibold text-gray-800 mb-2 hover:text-pink-600 transition-colors duration-300">
+            {data.name}
+          </h3>
+        </Link>
+
+        <div className="flex flex-wrap gap-2 mb-3">
+          {data.flavor && (
+            <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">
+              {data.flavor}
+            </span>
+          )}
+          {data.category && (
+            <span className="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
+              {data.category}
+            </span>
+          )}
+          {data.weight && (
+            <span className="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">
+              {data.weight}
+            </span>
+          )}
+        </div>
+
+        <div className="flex items-center justify-between mb-4">
+          <span className="text-2xl font-bold text-pink-600">
+            ₹{data.price}
+          </span>
+          <Button
+            onClick={() => addToCart(data)}
+            className="bg-pink-500 hover:bg-pink-600 text-white rounded-full"
+          >
+            <ShoppingCart className="w-5 h-5 mr-2" />
+            Add to Cart
+          </Button>
+        </div>
+
+        <Link href={`/menu/${data.id}`}>
+          <Button className="w-full bg-gray-800 hover:bg-gray-900 text-white">
+            View Details
           </Button>
         </Link>
       </div>
-
-      {/* ADD TO CART */}
-      <Button
-        onClick={() => {}}
-        className="absolute top-0 right-0 text-white rounded-tl-none rounded-tr-lg rounded-bl-lg rounded-br-none p-2 px-2 shadow-md"
-      >
-        <ShoppingCart className="w-5 h-5" />
-      </Button>
-
-      {/* ADD TO WISHLIST */}
-      <Button
-        className="absolute left-0 top-0 hover:bg-transparent"
-        variant={"ghost"}
-        onClick={handleLikeToggle}
-      >
-        <IsLikedIcon
-          className="w-5 h-5"
-          style={{ fill: isLiked ? "red" : "none", stroke: "red" }} // Adjust stroke color as needed
-        />
-      </Button>
-    </Card>
+    </div>
   );
 };
 

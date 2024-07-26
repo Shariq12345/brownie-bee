@@ -6,6 +6,7 @@ import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 import { Button } from "./ui/button";
 import MainNav from "./MainNav";
+import CartButton from "./cart-button";
 
 type Props = {
   userId: string | null;
@@ -60,6 +61,8 @@ const Header = ({ userId }: Props) => {
               </Link>
             </div>
           )}
+
+          {userId && <CartButton />}
         </div>
       </Container>
     </header>

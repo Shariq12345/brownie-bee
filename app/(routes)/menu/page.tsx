@@ -4,12 +4,12 @@ import Box from "@/components/Box";
 import Container from "@/components/Container";
 import FilterContainer from "@/components/filter-container";
 import CategoryFilters from "./components/CategoryFilters";
-import getWeights from "@/actions/get-weights";
 import WeightFilters from "./components/WeightFilters";
 import FlavorFilters from "./components/FlavorFilters";
-import getFlavors from "@/actions/get-flavors";
 import getProducts from "@/actions/get-products";
 import PageContent from "./components/page-content";
+import getFlavors from "@/actions/get-flavors";
+import getWeights from "@/actions/get-weights";
 
 export const revalidate = 0;
 
@@ -43,7 +43,7 @@ const MenuPage = async ({ searchParams }: MenuPageProps) => {
           </FilterContainer>
         </div>
         <Box className="col-span-12 md:col-span-10 flex flex-col items-start justify-start">
-          <PageContent />
+          <PageContent products={products} />
         </Box>
       </div>
     </Container>

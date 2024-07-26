@@ -1,96 +1,92 @@
 import React from "react";
-import Container from "@/components/Container";
 import { Button } from "./ui/button";
+import { Instagram, Facebook, Twitter } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-rose-100">
-      <Container>
-        <div className="w-full grid grid-cols-1 md:grid-cols-4 px-4 md:px-12 py-8 gap-6">
-          {/* Menu Section */}
-          <div className="flex flex-col items-start gap-4">
-            <h2 className="text-2xl font-bold text-rose-700">Menu</h2>
-            <ul className="space-y-2">
-              <li>
-                <a href="#" className="text-neutral-600 hover:text-rose-700">
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-neutral-600 hover:text-rose-700">
-                  Why Choose
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-neutral-600 hover:text-rose-700">
-                  Special Menu
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-neutral-600 hover:text-rose-700">
-                  Offers
-                </a>
-              </li>
-            </ul>
+    <footer className="bg-gradient-to-r from-pink-100 to-rose-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* About Section */}
+          <div>
+            <h2 className="text-2xl font-serif font-bold text-pink-800 mb-4">
+              Brownie Bee
+            </h2>
+            <p className="text-gray-600 mb-4">
+              Delighting taste buds with our handcrafted cakes and pastries
+              since 2010.
+            </p>
+            <div className="flex space-x-4">
+              <a href="#" className="text-pink-600 hover:text-pink-800">
+                <Instagram size={20} />
+              </a>
+              <a href="#" className="text-pink-600 hover:text-pink-800">
+                <Facebook size={20} />
+              </a>
+              <a href="#" className="text-pink-600 hover:text-pink-800">
+                <Twitter size={20} />
+              </a>
+            </div>
           </div>
 
-          {/* Help Section */}
-          <div className="flex flex-col items-start gap-4">
-            <h2 className="text-2xl font-bold text-rose-700">Help</h2>
+          {/* Quick Links Section */}
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+              Quick Links
+            </h3>
             <ul className="space-y-2">
-              <li>
-                <a href="#" className="text-neutral-600 hover:text-rose-700">
-                  Privacy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-neutral-600 hover:text-rose-700">
-                  Terms & Condition
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-neutral-600 hover:text-rose-700">
-                  Policy
-                </a>
-              </li>
+              {["Home", "Our Menu", "About Us", "Contact"].map((item) => (
+                <li key={item}>
+                  <a
+                    href="#"
+                    className="text-gray-600 hover:text-pink-600 transition-colors duration-300"
+                  >
+                    {item}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Contact Section */}
-          <div className="flex flex-col items-start gap-4">
-            <h2 className="text-2xl font-bold text-rose-700">Contact</h2>
-            <p className="text-neutral-600">+000 0000 0000</p>
-            <p className="text-neutral-600">info@foodied.com</p>
-            <p className="text-neutral-600">
-              Shop Number.8 New Mill Road Safia Bai Building, Bazar Ward, Kurla
-              West, Mumbai, Maharashtra 400070
-            </p>
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+              Contact Us
+            </h3>
+            <ul className="space-y-2 text-gray-600">
+              <li>123 Cake Street, Sweet City, 12345</li>
+              <li>Phone: (123) 456-7890</li>
+              <li>Email: hello@browniebee.com</li>
+            </ul>
           </div>
 
           {/* Newsletter Subscription Section */}
-          <div className="flex flex-col items-start gap-4">
-            <h2 className="text-2xl font-bold text-rose-700">
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">
               Subscribe to Our Newsletter
-            </h2>
-            <div className="w-full flex items-center border rounded-md border-rose-500 bg-white">
+            </h3>
+            <p className="text-gray-600 mb-4">
+              Get the latest updates on new products and upcoming sales
+            </p>
+            <div className="flex">
               <input
                 type="email"
-                placeholder="Enter your Email"
-                className="flex-1 py-2 px-4 text-sm text-neutral-700 placeholder-neutral-400 outline-none"
+                placeholder="Your email address"
+                className="flex-grow px-4 py-2 text-gray-900 bg-white border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-pink-500"
               />
-              <Button className="bg-rose-500 text-white rounded-r-md hover:bg-rose-600">
+              <Button className="bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded-r-md">
                 Subscribe
               </Button>
             </div>
           </div>
         </div>
 
-        <div className="text-center py-6">
-          <p className="text-xs text-neutral-600">
-            &copy; 2024 Brownie Bee, Inc. All rights reserved
+        <div className="mt-12 pt-8 border-t border-gray-200">
+          <p className="text-center text-gray-500 text-sm">
+            &copy; {new Date().getFullYear()} Brownie Bee. All rights reserved.
           </p>
         </div>
-      </Container>
+      </div>
     </footer>
   );
 };

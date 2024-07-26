@@ -8,7 +8,7 @@ export interface Products {
   category: string;
   weight: string;
   flavor: string;
-  qty: number;
+  quantity: number;
 }
 
 export interface Category {

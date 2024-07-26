@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
-import { Urbanist } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import ToastProvider from "@/providers/toast-provider";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import { ClerkProvider } from "@clerk/nextjs";
-import Header from "@/components/Header";
-import { auth } from "@clerk/nextjs/server";
-import Footer from "@/components/Footer";
-
-const urbanist = Urbanist({ subsets: ["latin"], variable: "--font-urbanist" });
 
 export const metadata: Metadata = {
   title: "Cake Shop",
@@ -23,15 +21,15 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={cn("bg-background antialiased", urbanist.variable)}>
+        <body className={cn("bg-background antialiased font-serif")}>
+          <ToastProvider />
           <img
-            src="img/hero.svg"
+            src="/img/hero.svg"
             alt="Background Svg"
             className="absolute -z-10 top-0 right-0 w-full md:w-[60%]"
           />
           <Header userId={userId} />
           {children}
-
           <Footer />
         </body>
       </html>
