@@ -77,8 +77,9 @@ const HomePage = async () => {
             Why Choose <span className="text-pink-600">Brownie Bee</span>?
           </h2>
           <p className="text-center text-gray-600 max-w-2xl mx-auto mb-12">
-            At Brownie Bee, we're passionate about creating unforgettable sweet
-            experiences. Our commitment to quality and creativity sets us apart.
+            At Brownie Bee, we&apos;re passionate about creating unforgettable
+            sweet experiences. Our commitment to quality and creativity sets us
+            apart.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-5">
             {[

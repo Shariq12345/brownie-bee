@@ -63,6 +63,7 @@ const PageContent = ({ products }: PageContentProps) => {
             {currentParams &&
               Object.entries(currentParams).map(([key, value]) => (
                 <div
+                  key={key}
                   onClick={() => handleClick(key)}
                   className="px-4 py-1 cursor-pointer hover:shadow-md rounded-md bg-rose-500/10 text-neutral-600 items-center gap-1 flex transition-all"
                 >
