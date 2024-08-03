@@ -42,14 +42,16 @@ const WeightFilters = ({ weights }: WeightFiltersProps) => {
             onClick={() => handleClick(weight.name)}
             key={weight.id}
             className={cn(
-              "flex items-center gap-2 text-sm font-semibold text-neutral-500",
+              "flex items-center gap-2 text-sm font-semibold text-neutral-500 cursor-pointer hover:text-rose-700",
               weight.name === searchParams.get("weight") && "text-rose-700"
             )}
           >
-            <p className="cursor-pointer hover:text-rose-700">{weight.value}</p>
-            {weight.name === searchParams.get("weight") && (
-              <Check className="w-4 h-4 text-rose-700" />
-            )}
+            <div className="w-4 h-4 border border-neutral-300 rounded flex items-center justify-center">
+              {weight.name === searchParams.get("weight") && (
+                <Check className="w-3 h-3 text-rose-700" />
+              )}
+            </div>
+            <p>{weight.value}</p>
           </div>
         ))}
       </Box>

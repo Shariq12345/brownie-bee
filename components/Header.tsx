@@ -56,7 +56,7 @@ const Header = ({ userId }: Props) => {
               </Link>
               <Link href="/sign-up">
                 <Button className="bg-pink-400 text-white hover:bg-pink-500">
-                  Sign in
+                  Sign up
                 </Button>
               </Link>
             </div>

@@ -1,92 +1,130 @@
 "use client";
 
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import useCart from "@/hooks/use-cart";
 import { cn } from "@/lib/utils";
 import { Products } from "@/types";
-import { ShoppingCart } from "lucide-react";
-import React from "react";
+import { ShoppingCart, Heart, Cake, Weight, Tag } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface InfoProps {
   product: Products;
 }
 
-const Info = ({ product }: InfoProps) => {
-  const [qty, setQty] = React.useState(1);
+const Info: React.FC<InfoProps> = ({ product }) => {
+  const [quantity, setQuantity] = useState(1);
+  const [totalPrice, setTotalPrice] = useState(product.price);
+  const [isLiked, setIsLiked] = useState(false);
   const cart = useCart();
 
-  const handleQty = (num: number) => {
-    setQty(num);
-    cart.updateItemQty(product.id, num);
+  useEffect(() => {
+    setTotalPrice(product.price * quantity);
+  }, [quantity, product.price]);
+
+  const handleQuantity = (num: number) => {
+    setQuantity(num);
+    cart.updateItemQuantity(product.id, num);
   };
 
   const addToCart = (data: Products) => {
-    cart.addItem({ ...data, quantity: qty });
+    cart.addItem({ ...data, quantity: quantity });
   };
 
   return (
-    <div className="p-6 bg-white rounded-lg shadow-md">
-      <h1 className="text-4xl font-bold text-rose-700">{product.name}</h1>
-      <div className="mt-4">
-        <p className="text-base text-left text-neutral-600">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque ex
-          quisquam officia provident eos dicta obcaecati eum voluptatem
-          aspernatur quos nulla porro eaque nesciunt, corrupti perspiciatis
-          nostrum molestiae ducimus non?
-        </p>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="p-8 bg-white rounded-2xl shadow-lg"
+    >
+      <div className="flex justify-between items-start mb-6">
+        <h1 className="text-4xl font-bold text-rose-700">{product.name}</h1>
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={() => setIsLiked(!isLiked)}
+          className={cn(
+            "p-2 rounded-full transition-colors duration-300",
+            isLiked ? "bg-rose-100 text-rose-600" : "bg-gray-100 text-gray-400"
+          )}
+        >
+          <Heart className={cn("w-6 h-6", isLiked && "fill-current")} />
+        </motion.button>
       </div>
-      <div className="w-full flex items-center justify-start gap-3 flex-wrap mt-8">
+
+      <p className="text-base text-gray-600 mb-8">{product.description}</p>
+
+      <div className="flex flex-wrap gap-4 mb-8">
         {product.flavor && (
-          <div className="rounded-full bg-emerald-100 px-4 py-2 text-sm font-semibold text-emerald-600">
+          <div className="flex items-center rounded-full bg-emerald-100 px-4 py-2 text-sm font-semibold text-emerald-600">
+            <Cake className="w-4 h-4 mr-2" />
             {product.flavor}
           </div>
         )}
         {product.weight && (
-          <div className="rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-600">
+          <div className="flex items-center rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-600">
+            <Weight className="w-4 h-4 mr-2" />
             {product.weight}
           </div>
         )}
         {product.category && (
-          <div className="rounded-full bg-yellow-100 px-4 py-2 text-sm font-semibold text-yellow-600">
+          <div className="flex items-center rounded-full bg-yellow-100 px-4 py-2 text-sm font-semibold text-yellow-600">
+            <Tag className="w-4 h-4 mr-2" />
             {product.category}
           </div>
         )}
       </div>
 
-      <div className="w-full grid grid-cols-4 my-12">
-        <div className="col-span-1 space-y-8">
-          <p className="text-lg font-semibold text-neutral-700">Price</p>
-          <p className="text-lg font-semibold text-neutral-700">Quantity</p>
+      <div className="bg-rose-50 rounded-xl p-6 mb-8">
+        <div className="flex justify-between items-center mb-4">
+          <span className="text-lg font-semibold text-gray-700">Price</span>
+          <div>
+            <span className="text-3xl font-bold text-rose-600">
+              ₹{totalPrice}
+            </span>
+            <span className="text-sm text-gray-500 ml-2">
+              (₹{product.price} per item)
+            </span>
+          </div>
         </div>
-        <div className="col-span-3 space-y-8">
-          <p className="text-xl font-bold text-black">&#8377;{product.price}</p>
+        <div className="flex justify-between items-center">
+          <span className="text-lg font-semibold text-gray-700">Quantity</span>
           <div className="flex items-center gap-2">
             {[1, 2, 3, 4, 5].map((num) => (
-              <div
+              <motion.div
                 key={num}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
                 className={cn(
-                  "w-8 h-8 cursor-pointer rounded-full flex items-center justify-center border border-rose-700",
-                  qty === num
-                    ? "bg-rose-700 shadow-md text-white"
-                    : "bg-transparent shadow-none"
+                  "w-10 h-10 cursor-pointer rounded-full flex items-center justify-center border-2 transition-all duration-300",
+                  quantity === num
+                    ? "bg-rose-600 border-rose-600 text-white font-bold"
+                    : "bg-white border-gray-300 text-gray-600 hover:border-rose-400"
                 )}
-                onClick={() => handleQty(num)}
+                onClick={() => handleQuantity(num)}
               >
                 {num}
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </div>
 
-      <Button
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
         onClick={() => addToCart(product)}
-        className="w-full flex items-center justify-center text-xl font-semibold gap-3 py-4 bg-rose-700 text-white hover:bg-rose-600"
+        className="w-full flex items-center justify-center text-lg font-bold gap-3 py-4 bg-rose-600 text-white rounded-xl transition-colors duration-300 hover:bg-rose-700"
       >
         <ShoppingCart className="w-6 h-6" />
         Add to cart
-      </Button>
-    </div>
+      </motion.button>
+
+      <p className="text-center text-sm text-gray-500 mt-4">
+        Free delivery on orders over ₹1000 • 30-day return policy
+      </p>
+    </motion.div>
   );
 };
 

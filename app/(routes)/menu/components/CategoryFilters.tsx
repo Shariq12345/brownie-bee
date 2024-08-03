@@ -42,16 +42,16 @@ const CategoryFilters = ({ categories }: CategoryFiltersProps) => {
             onClick={() => handleClick(category.name)}
             key={category.id}
             className={cn(
-              "flex items-center gap-2 text-sm font-semibold text-neutral-500",
+              "flex items-center gap-2 text-sm font-semibold text-neutral-500 cursor-pointer hover:text-rose-700",
               category.name === searchParams.get("category") && "text-rose-700"
             )}
           >
-            <p className="cursor-pointer hover:text-rose-700">
-              {category.name}
-            </p>
-            {category.name === searchParams.get("category") && (
-              <Check className="w-4 h-4 text-rose-700" />
-            )}
+            <div className="w-4 h-4 border border-neutral-300 rounded flex items-center justify-center">
+              {category.name === searchParams.get("category") && (
+                <Check className="w-3 h-3 text-rose-700" />
+              )}
+            </div>
+            <p>{category.name}</p>
           </div>
         ))}
       </Box>

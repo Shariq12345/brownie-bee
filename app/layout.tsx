@@ -18,18 +18,43 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const { userId } = auth();
+
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={cn("bg-background antialiased font-serif")}>
+        <head>
+          <link
+            href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@400;700&display=swap"
+            rel="stylesheet"
+          />
+          <style>{`
+            .background-svg {
+              position: absolute;
+              top: 0;
+              right: 0;
+              width: 100%;
+              height: auto;
+              max-height: 100vh;
+              object-fit: cover;
+              object-position: top right;
+              z-index: -10;
+            }
+            @media (min-width: 768px) {
+              .background-svg {
+                width: 60%;
+              }
+            }
+          `}</style>
+        </head>
+        <body className={cn("bg-background antialiased font-sans")}>
           <ToastProvider />
           <img
             src="/img/hero.svg"
             alt="Background Svg"
-            className="absolute -z-10 top-0 right-0 w-full md:w-[60%]"
+            className="background-svg"
           />
           <Header userId={userId} />
-          {children}
+          <main className="font-sans relative z-10">{children}</main>
           <Footer />
         </body>
       </html>

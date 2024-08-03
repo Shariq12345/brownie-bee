@@ -42,14 +42,16 @@ const FlavorFilters = ({ flavors }: FlavorFiltersProps) => {
             onClick={() => handleClick(flavor.name)}
             key={flavor.id}
             className={cn(
-              "flex items-center gap-2 text-sm font-semibold text-neutral-500",
-              flavor.value === searchParams.get("flavor") && "text-rose-700"
+              "flex items-center gap-2 text-sm font-semibold text-neutral-500 cursor-pointer hover:text-rose-700",
+              flavor.name === searchParams.get("flavor") && "text-rose-700"
             )}
           >
-            <p className="cursor-pointer hover:text-rose-700">{flavor.name}</p>
-            {flavor.name === searchParams.get("flavor") && (
-              <Check className="w-4 h-4 text-rose-700" />
-            )}
+            <div className="w-4 h-4 border border-neutral-300 rounded flex items-center justify-center">
+              {flavor.name === searchParams.get("flavor") && (
+                <Check className="w-3 h-3 text-rose-700" />
+              )}
+            </div>
+            <p>{flavor.name}</p>
           </div>
         ))}
       </Box>

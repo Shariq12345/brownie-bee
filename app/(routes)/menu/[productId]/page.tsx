@@ -18,7 +18,7 @@ interface ProductPageProps {
 const ProductPage = async ({ params }: ProductPageProps) => {
   const product = await getProduct(params.productId);
   const suggestedProducts = await getProducts({
-    category: product.category,
+    category: product?.category,
   });
   return (
     <div>
@@ -47,6 +47,7 @@ const ProductPage = async ({ params }: ProductPageProps) => {
             </div>
           </div>
 
+          <hr className="my-10" />
           <SuggestedProducts products={suggestedProducts} />
         </div>
       </Container>

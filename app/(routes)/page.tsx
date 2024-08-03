@@ -14,53 +14,53 @@ const HomePage = async () => {
   const products = await getProducts({ isFeatured: true });
 
   return (
-    <div className="bg-gradient-to-b from-pink-50 to-white">
-      <Container>
-        {/* Hero Section */}
-        <section className="flex flex-col md:flex-row items-center justify-between py-16 md:py-24">
-          <div className="w-full md:w-1/2 space-y-6">
-            <span className="inline-block px-4 py-2 rounded-full bg-pink-100 text-pink-800 font-semibold text-sm">
-              Indulge in Sweetness
-            </span>
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
-              Welcome to <span className="text-pink-600">Brownie Bee</span>
-            </h1>
-            <p className="text-lg text-gray-600 max-w-lg">
-              Discover our delectable range of handcrafted cakes, pastries, and
-              sweets. Perfect for every occasion or just because you deserve a
-              treat!
-            </p>
-            <div className="flex space-x-4">
-              <Link href="/menu">
-                <Button className="bg-pink-600 hover:bg-pink-700 text-white px-8 py-3 rounded-full text-lg">
-                  Order Now
-                </Button>
-              </Link>
-              <Link href="/">
-                <Button
-                  variant="outline"
-                  className="text-pink-600 border-pink-600 hover:bg-pink-50 px-8 py-3 rounded-full text-lg"
-                >
-                  Explore More
-                </Button>
-              </Link>
+    <div className="bg-white">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-r from-pink-50 to-pink-100">
+        <Container>
+          <div className="flex flex-col md:flex-row items-center justify-between py-20 md:py-32">
+            <div className="w-full md:w-1/2 space-y-6">
+              <h1 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
+                Indulge in <span className="text-pink-600">Sweet Delights</span>
+              </h1>
+              <p className="text-lg text-gray-600 max-w-lg">
+                Discover our handcrafted cakes, pastries, and sweets. Perfect
+                for every occasion or just because you deserve a treat!
+              </p>
+              <div className="flex space-x-4">
+                <Link href="/menu">
+                  <Button className="bg-pink-600 hover:bg-pink-700 text-white px-8 py-3 rounded-md text-lg transition duration-300 ease-in-out transform hover:scale-105">
+                    Shop Now
+                  </Button>
+                </Link>
+                {/* <Link href="/">
+                  <Button
+                    variant="outline"
+                    className="text-pink-600 border-pink-600 hover:bg-pink-50 px-8 py-3 rounded-md text-lg transition duration-300 ease-in-out transform hover:scale-105"
+                  >
+                    Learn More
+                  </Button>
+                </Link> */}
+              </div>
+            </div>
+            <div className="w-full md:w-1/2 mt-12 md:mt-0">
+              <div className="relative h-[400px] md:h-[500px] w-full">
+                <Image
+                  src="/img/Food.png"
+                  alt="Delicious Cakes"
+                  layout="fill"
+                  objectFit="contain"
+                  className="rounded-lg shadow-2xl"
+                />
+              </div>
             </div>
           </div>
-          <div className="w-full md:w-1/2 mt-12 md:mt-0">
-            <div className="relative h-[400px] md:h-[500px] w-full">
-              <Image
-                src="/img/Food.png"
-                alt="Delicious Cakes"
-                layout="fill"
-                objectFit="contain"
-                className="rounded-lg shadow-2xl"
-              />
-            </div>
-          </div>
-        </section>
+        </Container>
+      </section>
 
-        {/* Featured Products Section */}
-        <section className="py-16">
+      {/* Featured Products Section */}
+      <section className="py-20 bg-white">
+        <Container>
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900">
             Our <span className="text-pink-600">Featured Treats</span>
           </h2>
@@ -69,19 +69,20 @@ const HomePage = async () => {
               <FeaturedContent key={product.id} data={product} />
             ))}
           </div>
-        </section>
+        </Container>
+      </section>
 
-        {/* Why Choose Us Section */}
-        <section className="py-16 bg-white rounded-lg shadow-xl mb-10">
+      {/* Why Choose Us Section */}
+      <section className="py-20 bg-gray-50">
+        <Container>
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900">
             Why Choose <span className="text-pink-600">Brownie Bee</span>?
           </h2>
           <p className="text-center text-gray-600 max-w-2xl mx-auto mb-12">
-            At Brownie Bee, we&apos;re passionate about creating unforgettable
-            sweet experiences. Our commitment to quality and creativity sets us
-            apart.
+            At Brownie Bee, we're passionate about creating unforgettable sweet
+            experiences. Our commitment to quality and creativity sets us apart.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
                 icon: Star,
@@ -104,7 +105,7 @@ const HomePage = async () => {
             ].map((item, index) => (
               <Card
                 key={index}
-                className="bg-pink-50 border-none shadow-lg hover:shadow-xl transition-shadow duration-300"
+                className="bg-white border-none shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
                 <div className="p-6 flex flex-col items-center text-center">
                   <item.icon className="w-12 h-12 text-pink-600 mb-4" />
@@ -118,8 +119,28 @@ const HomePage = async () => {
               </Card>
             ))}
           </div>
-        </section>
-      </Container>
+        </Container>
+      </section>
+
+      {/* Call to Action Section */}
+      <section className="py-20 bg-pink-600 text-white">
+        <Container>
+          <div className="text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              Ready to Indulge?
+            </h2>
+            <p className="text-lg mb-8 max-w-2xl mx-auto">
+              Explore our full range of delicious treats and make your day a
+              little sweeter.
+            </p>
+            <Link href="/menu">
+              <Button className="bg-white text-pink-600 hover:bg-gray-100 px-8 py-3 rounded-md text-lg transition duration-300 ease-in-out transform hover:scale-105">
+                View Our Menu
+              </Button>
+            </Link>
+          </div>
+        </Container>
+      </section>
     </div>
   );
 };

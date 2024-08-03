@@ -10,13 +10,13 @@ interface CartItemProps {
 }
 
 const CartItem = ({ item }: CartItemProps) => {
-  const [qty, setQty] = useState(item.quantity ?? 1);
+  const [quantity, setQuantity] = useState(item.quantity ?? 1);
   const cart = useCart();
 
-  const handleQuantity = (newQty: number) => {
-    if (newQty > 0 && newQty <= 10) {
-      setQty(newQty);
-      cart.updateItemQty(item.id, newQty);
+  const handleQuantity = (newQuantity: number) => {
+    if (newQuantity > 0 && newQuantity <= 10) {
+      setQuantity(newQuantity);
+      cart.updateItemQuantity(item.id, newQuantity);
     }
   };
 
@@ -57,16 +57,16 @@ const CartItem = ({ item }: CartItemProps) => {
             <Button
               size="sm"
               variant="ghost"
-              onClick={() => handleQuantity(qty - 1)}
+              onClick={() => handleQuantity(quantity - 1)}
               className="text-pink-600 hover:text-pink-700 hover:bg-pink-50"
             >
               <Minus className="h-4 w-4" />
             </Button>
-            <span className="px-3 font-medium text-pink-800">{qty}</span>
+            <span className="px-3 font-medium text-pink-800">{quantity}</span>
             <Button
               size="sm"
               variant="ghost"
-              onClick={() => handleQuantity(qty + 1)}
+              onClick={() => handleQuantity(quantity + 1)}
               className="text-pink-600 hover:text-pink-700 hover:bg-pink-50"
             >
               <Plus className="h-4 w-4" />
