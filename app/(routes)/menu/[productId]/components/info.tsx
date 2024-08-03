@@ -18,9 +18,14 @@ const Info: React.FC<InfoProps> = ({ product }) => {
   const [isLiked, setIsLiked] = useState(false);
   const cart = useCart();
 
+  const discountedPrice = product.discount
+    ? // @ts-ignore
+      product.price * (1 - product.discount / 100)
+    : product.price;
+
   useEffect(() => {
-    setTotalPrice(product.price * quantity);
-  }, [quantity, product.price]);
+    setTotalPrice(discountedPrice * quantity);
+  }, [quantity, discountedPrice]);
 
   const handleQuantity = (num: number) => {
     setQuantity(num);
@@ -28,7 +33,7 @@ const Info: React.FC<InfoProps> = ({ product }) => {
   };
 
   const addToCart = (data: Products) => {
-    cart.addItem({ ...data, quantity: quantity });
+    cart.addItem({ ...data, quantity: quantity, price: discountedPrice });
   };
 
   return (
@@ -79,13 +84,23 @@ const Info: React.FC<InfoProps> = ({ product }) => {
       <div className="bg-rose-50 rounded-xl p-6 mb-8">
         <div className="flex justify-between items-center mb-4">
           <span className="text-lg font-semibold text-gray-700">Price</span>
-          <div>
-            <span className="text-3xl font-bold text-rose-600">
-              ₹{totalPrice}
-            </span>
-            <span className="text-sm text-gray-500 ml-2">
-              (₹{product.price} per item)
-            </span>
+          <div className="flex flex-col items-end">
+            <div className="flex items-center">
+              <span className="text-3xl font-bold text-rose-600">
+                ₹{totalPrice.toFixed(2)}
+              </span>
+
+              {product.discount > 0 && (
+                <span className="ml-2 text-sm font-medium text-green-600">
+                  ({product.discount}% off)
+                </span>
+              )}
+            </div>
+            {product.discount > 0 && (
+              <span className="text-sm text-gray-500 line-through">
+                ₹{(product.price * quantity).toFixed(2)}
+              </span>
+            )}
           </div>
         </div>
         <div className="flex justify-between items-center">

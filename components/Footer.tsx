@@ -7,9 +7,9 @@ const Footer = () => {
   return (
     <footer className="bg-gradient-to-br from-rose-50 to-pink-100 pt-16 pb-8">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 gap-12 lg:flex lg:justify-between lg:space-x-12">
           {/* About Section */}
-          <div className="space-y-4">
+          <div className="space-y-4 lg:flex-1">
             <h2 className="text-3xl font-serif font-bold text-rose-700">
               Brownie Bee
             </h2>
@@ -31,7 +31,7 @@ const Footer = () => {
           </div>
 
           {/* Quick Links Section */}
-          <div>
+          <div className="lg:flex-1">
             <h3 className="text-xl font-semibold text-gray-800 mb-4">
               Quick Links
             </h3>
@@ -54,7 +54,7 @@ const Footer = () => {
           </div>
 
           {/* Contact Section */}
-          <div>
+          <div className="lg:flex-1">
             <h3 className="text-xl font-semibold text-gray-800 mb-4">
               Contact Us
             </h3>
@@ -69,14 +69,14 @@ const Footer = () => {
           </div>
 
           {/* Newsletter Subscription Section */}
-          <div className="lg:col-span-4 mt-8 lg:mt-12">
-            <h3 className="text-2xl font-semibold text-gray-800 mb-4 text-center">
+          <div className="lg:flex-1 mt-8 lg:mt-0">
+            <h3 className="text-2xl font-semibold text-gray-800 mb-4 text-center lg:text-left">
               Subscribe to Our Sweet Newsletter
             </h3>
-            <p className="text-gray-600 mb-4 text-center">
+            <p className="text-gray-600 mb-4 text-center lg:text-left">
               Get the latest updates on new products and upcoming sales
             </p>
-            <form className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
+            <form className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto lg:mx-0">
               <input
                 type="email"
                 placeholder="Your email address"
@@ -90,8 +90,8 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-16 pt-8 border-t border-gray-200">
-          <div className="flex justify-center space-x-4 text-gray-500 text-sm mb-4">
+        <div className="mt-16 pt-8 border-t border-gray-200 lg:flex lg:justify-between lg:items-center">
+          <div className="flex justify-center space-x-4 text-gray-500 text-sm mb-4 lg:mb-0">
             <Link href="/terms">
               <span className="hover:text-gray-700 transition-colors duration-300 cursor-pointer">
                 Terms & Conditions
@@ -103,7 +103,7 @@ const Footer = () => {
               </span>
             </Link>
           </div>
-          <p className="text-center text-gray-500 text-sm">
+          <p className="text-center text-gray-500 text-sm lg:text-left">
             &copy; {new Date().getFullYear()} Brownie Bee. All rights reserved.
           </p>
         </div>

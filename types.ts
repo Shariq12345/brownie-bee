@@ -10,6 +10,7 @@ export interface Products {
   flavor: string;
   quantity: number;
   description: string;
+  discount: string;
 }
 
 export interface Category {
