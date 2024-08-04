@@ -35,12 +35,12 @@ const FeaturedContent: React.FC<FeaturedContentProps> = ({ data }) => {
 
   return (
     <motion.div
-      className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg"
+      className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg flex flex-col h-full"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <Link href={`/menu/${data.id}`} className="block relative">
+      <Link href={`/menu/${data.id}`} className="block relative flex-grow">
         <div className="aspect-square relative">
           <Image
             src={data.images[0].url}
@@ -65,7 +65,7 @@ const FeaturedContent: React.FC<FeaturedContentProps> = ({ data }) => {
             </div>
           )}
         </div>
-        <div className="p-4">
+        <div className="p-4 flex flex-col flex-grow">
           <h3 className="text-lg font-semibold text-gray-800 mb-2">
             {data.name}
           </h3>
@@ -75,18 +75,18 @@ const FeaturedContent: React.FC<FeaturedContentProps> = ({ data }) => {
                 {data.flavor}
               </span>
             )}
-            {data.category && (
+            {/* {data.category && (
               <span className="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
                 {data.category}
               </span>
-            )}
+            )} */}
             {data.weight && (
               <span className="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">
                 {data.weight}
               </span>
             )}
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between mt-auto">
             <div className="flex items-baseline">
               <span className="text-2xl font-bold text-pink-600 mr-2">
                 ₹{discountedPrice.toFixed(2)}

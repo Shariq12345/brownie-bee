@@ -35,6 +35,13 @@ const ProductPage = async ({ params }: ProductPageProps) => {
           >
             Products
           </Link>
+          <ChevronRight className="size-5 text-muted-foreground" />
+          <Link
+            href={`/menu/${product.category}`}
+            className="flex items-center gap-2 text-muted-foreground cursor-default"
+          >
+            {product.name}
+          </Link>
         </Box>
 
         <div className="px-4 py-10 sm:px-6 lg:px-8 space-y-10">

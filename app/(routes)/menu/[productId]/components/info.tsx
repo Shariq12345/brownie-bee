@@ -137,7 +137,7 @@ const Info: React.FC<InfoProps> = ({ product }) => {
       </motion.button>
 
       <p className="text-center text-sm text-gray-500 mt-4">
-        Free delivery on orders over ₹1000 • 30-day return policy
+        Free delivery on orders over ₹1000
       </p>
     </motion.div>
   );

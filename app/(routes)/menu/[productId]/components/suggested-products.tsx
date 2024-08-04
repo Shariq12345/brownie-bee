@@ -5,6 +5,8 @@ import { Products } from "@/types";
 import { useParams } from "next/navigation";
 import React from "react";
 
+export const revalidate = 0;
+
 interface SuggestedProductsProps {
   products: Products[];
 }
