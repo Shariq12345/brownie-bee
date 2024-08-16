@@ -2,11 +2,11 @@ import React from "react";
 import getProducts from "@/actions/get-products";
 import Container from "@/components/Container";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import Link from "next/link";
 import FeaturedContent from "@/components/featured-content";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { CakeIcon, GiftIcon, Star } from "lucide-react";
+import Carousel from "@/components/Carousel";
 
 export const revalidate = 0;
 
@@ -33,26 +33,10 @@ const HomePage = async () => {
                     Shop Now
                   </Button>
                 </Link>
-                {/* <Link href="/">
-                  <Button
-                    variant="outline"
-                    className="text-pink-600 border-pink-600 hover:bg-pink-50 px-8 py-3 rounded-md text-lg transition duration-300 ease-in-out transform hover:scale-105"
-                  >
-                    Learn More
-                  </Button>
-                </Link> */}
               </div>
             </div>
             <div className="w-full md:w-1/2 mt-12 md:mt-0">
-              <div className="relative h-[400px] md:h-[500px] w-full">
-                <Image
-                  src="/img/Food.png"
-                  alt="Delicious Cakes"
-                  layout="fill"
-                  objectFit="contain"
-                  className="rounded-lg shadow-2xl"
-                />
-              </div>
+              <Carousel />
             </div>
           </div>
         </Container>

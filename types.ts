@@ -1,3 +1,11 @@
+export interface Review {
+  id: string;
+  productId: string;
+  userId: string;
+  rating: number;
+  comment: string;
+}
+
 export interface Products {
   id: string;
   name: string;
@@ -10,7 +18,9 @@ export interface Products {
   flavor: string;
   quantity: number;
   description: string;
-  discount: string;
+  discount: number;
+  reviews?: Review[]; // Optional field to store reviews
+  averageRating?: number; // Optional field to store the average rating
 }
 
 export interface Category {

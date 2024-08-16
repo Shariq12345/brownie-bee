@@ -35,7 +35,7 @@ const FeaturedContent: React.FC<FeaturedContentProps> = ({ data }) => {
 
   return (
     <motion.div
-      className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg flex flex-col h-full"
+      className="bg-white rounded-lg shadow-2xl overflow-hidden transition-all duration-300 hover:shadow-3xl flex flex-col h-full"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -45,7 +45,7 @@ const FeaturedContent: React.FC<FeaturedContentProps> = ({ data }) => {
           <Image
             src={data.images[0].url}
             alt={data.name}
-            layout="fill"
+            fill
             objectFit="cover"
             className="transition-transform duration-500 ease-out hover:scale-105"
           />
