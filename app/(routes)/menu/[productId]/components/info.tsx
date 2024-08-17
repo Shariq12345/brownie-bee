@@ -328,7 +328,7 @@ const Info: React.FC<InfoProps> = ({ product }) => {
               ) : (
                 <>
                   <X className="w-5 h-5 mr-2" />
-                  Sorry, we don't deliver to this pincode yet.
+                  Sorry, we don&apos;t deliver to this pincode yet.
                 </>
               )}
             </motion.div>
