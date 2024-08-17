@@ -11,7 +11,7 @@ const ContactPage = () => {
               Visit Our Location
             </h2>
             <p className="mt-4 text-lg text-gray-700">
-              We'd love to see you in person! Here's where you can find us.
+              We&apos;d love to see you in person! Here&apos;s where you can find us.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

@@ -31,23 +31,27 @@ const Reviews: React.FC<ReviewsProps> = ({ reviews, productId }) => {
 
   const handleSubmit = async () => {
     try {
-      console.log("Submitting review:", { rating, comment });
-
-      const response = await axios.post(
+      const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/products/${productId}/reviews`,
         {
-          rating,
-          comment,
-        },
-        {
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          withCredentials: true,
+          body: JSON.stringify({
+            rating,
+            comment,
+          }),
         }
       );
 
-      console.log("Review submitted successfully:", response.data);
+      if (!response.ok) {
+        throw new Error("Failed to submit review");
+      }
+
+      const data = await response.json();
+      console.log("Review submitted successfully:", data);
+
       // Optionally, add the new review to the local state to update the UI immediately
     } catch (error: Error | any) {
       console.error(

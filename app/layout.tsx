@@ -8,7 +8,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Cake Shop",
+  title: "Brownie Bee - The Cake Shop",
   description: "The best cakes in town.",
 };
 
