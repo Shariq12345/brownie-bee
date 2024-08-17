@@ -11,6 +11,8 @@ import Info from "./components/info";
 import SuggestedProducts from "./components/suggested-products";
 import Reviews from "./components/Reviews";
 
+export const revalidate = 0;
+
 interface ProductPageProps {
   params: {
     productId: string;

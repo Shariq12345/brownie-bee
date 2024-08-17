@@ -46,8 +46,7 @@ const FeaturedContent: React.FC<FeaturedContentProps> = ({ data }) => {
             src={data.images[0].url}
             alt={data.name}
             fill
-            objectFit="cover"
-            className="transition-transform duration-500 ease-out hover:scale-105"
+            className="transition-transform duration-500 ease-out hover:scale-105 object-cover"
           />
           <button
             onClick={handleLikeToggle}

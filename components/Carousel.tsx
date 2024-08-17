@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 const carouselItems = [
   { id: 1, src: "/img/cake.png", alt: "Delicious Cake" },
   { id: 2, src: "/img/cupcake.png", alt: "Tasty Cupcakes" },
-  { id: 3, src: "/img/pastries.png", alt: "Assorted Pastries" },
+  { id: 3, src: "/img/pastries.jpg", alt: "Assorted Pastries" },
 ];
 
 const Carousel = () => {
