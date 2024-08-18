@@ -1,16 +1,35 @@
+// MainNav.tsx
 "use client";
 import React from "react";
-import { useParams, usePathname } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { useMedia } from "react-use";
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { Button } from "./ui/button";
+import { Menu } from "lucide-react";
 
 interface MainNavProps extends React.HTMLAttributes<HTMLElement> {
   scrolled: boolean;
+  isMobileMenuOpen: boolean;
+  setIsMobileMenuOpen: (isOpen: boolean) => void;
 }
 
-const MainNav = ({ scrolled, className, ...props }: MainNavProps) => {
+const MainNav = ({
+  scrolled,
+  className,
+  isMobileMenuOpen,
+  setIsMobileMenuOpen,
+  ...props
+}: MainNavProps) => {
   const pathname = usePathname();
-  const params = useParams();
+  const router = useRouter();
+  const isMobile = useMedia("(max-width: 1024px)", false);
+
+  const onClick = (href: string) => {
+    router.push(href);
+    setIsMobileMenuOpen(false);
+  };
 
   const routes = [
     {
@@ -34,6 +53,28 @@ const MainNav = ({ scrolled, className, ...props }: MainNavProps) => {
       active: pathname === "/contact",
     },
   ];
+
+  if (isMobile) {
+    return (
+      <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+        <SheetContent side="right" className="px-2">
+          <nav className="flex flex-col gap-y-2 pt-6">
+            {routes.map((route) => (
+              <Button
+                key={route.href}
+                variant={route.active ? "secondary" : "ghost"}
+                onClick={() => onClick(route.href)}
+                className="w-full justify-start"
+              >
+                {route.label}
+              </Button>
+            ))}
+          </nav>
+        </SheetContent>
+      </Sheet>
+    );
+  }
+
   return (
     <div className="ml-auto">
       <nav

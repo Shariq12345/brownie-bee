@@ -30,24 +30,26 @@ const ProductPage = async ({ params }: ProductPageProps) => {
     <div>
       <Container className="bg-white rounded-lg my-4 px-4">
         <Box className="text-neutral-700 text-sm items-center mt-12">
-          <Link href={"/"} className="flex items-center gap-2">
-            <Home className="size-4" />
-            Main Page
-          </Link>
-          <ChevronRight className="size-5 text-muted-foreground" />
-          <Link
-            href={"/menu"}
-            className="flex items-center gap-2 text-muted-foreground"
-          >
-            Products
-          </Link>
-          <ChevronRight className="size-5 text-muted-foreground" />
-          <Link
-            href={`/menu/${product.category}`}
-            className="flex items-center gap-2 text-muted-foreground cursor-default"
-          >
-            {product.name}
-          </Link>
+          <div className="flex items-center mt-5">
+            <Link href={"/"} className="flex items-center gap-2">
+              <Home className="size-4" />
+              Main Page
+            </Link>
+            <ChevronRight className="size-5 text-muted-foreground" />
+            <Link
+              href={"/menu"}
+              className="flex items-center gap-2 text-muted-foreground"
+            >
+              Products
+            </Link>
+            <ChevronRight className="size-5 text-muted-foreground" />
+            <Link
+              href={`/menu/${product.category}`}
+              className="flex items-center gap-2 text-muted-foreground cursor-default"
+            >
+              {product.name}
+            </Link>
+          </div>
         </Box>
 
         <div className="px-4 py-10 sm:px-6 lg:px-8 space-y-10">

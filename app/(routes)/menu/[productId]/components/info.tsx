@@ -17,6 +17,8 @@ import {
   MapPin,
   Check,
   X,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -32,6 +34,7 @@ const Info: React.FC<InfoProps> = ({ product }) => {
   const [activeTab, setActiveTab] = useState("description");
   const [pincode, setPincode] = useState("");
   const [pincodeValid, setPincodeValid] = useState<boolean | null>(null);
+  const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const cart = useCart();
   const router = useRouter();
 
@@ -59,10 +62,8 @@ const Info: React.FC<InfoProps> = ({ product }) => {
 
   // Mock function to check pincode validity
   const checkPincode = (code: string) => {
-    // This is a mock implementation. Replace with actual API call or logic.
     return new Promise<boolean>((resolve) => {
       setTimeout(() => {
-        // Example: consider codes between 100000 and 600000 as valid
         resolve(parseInt(code) >= 400070 && parseInt(code) <= 600000);
       }, 500);
     });
@@ -140,15 +141,15 @@ const Info: React.FC<InfoProps> = ({ product }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="p-8 bg-white rounded-2xl shadow-lg"
+      className="p-4 sm:p-6 md:p-8 bg-white rounded-2xl shadow-lg"
     >
-      <div className="flex justify-between items-start mb-6">
+      <div className="flex justify-between items-center mb-6">
         <div className="flex items-center">
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ type: "spring", stiffness: 500, damping: 30 }}
-            className="mr-3 bg-green-100 rounded-full p-1.5 mt-2"
+            className="mr-3 bg-green-100 rounded-full p-1.5"
             title="Vegetarian"
           >
             <Image
@@ -158,23 +159,25 @@ const Info: React.FC<InfoProps> = ({ product }) => {
               alt="Veg"
             />
           </motion.div>
-          <h1 className="text-4xl font-bold text-rose-700">{product.name}</h1>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-rose-700">
+            {product.name}
+          </h1>
         </div>
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={() => setIsLiked(!isLiked)}
           className={cn(
-            "p-2 rounded-full transition-colors duration-300",
-            isLiked ? "bg-rose-100 text-rose-600" : "bg-gray-100 text-gray-400"
+            "rounded-full transition-colors duration-300",
+            isLiked ? "bg-rose-100 text-rose-600" : "text-gray-400"
           )}
         >
           <Heart className={cn("w-6 h-6", isLiked && "fill-current")} />
         </motion.button>
       </div>
 
-      <div className="mb-8">
-        <div className="flex space-x-4 mb-4">
+      <div className="mb-6">
+        <div className="flex flex-wrap gap-2 mb-4">
           {["description", "Product Info", "More Info"].map((tab) => (
             <motion.button
               key={tab}
@@ -182,7 +185,7 @@ const Info: React.FC<InfoProps> = ({ product }) => {
               whileTap={{ scale: 0.95 }}
               onClick={() => setActiveTab(tab)}
               className={cn(
-                "px-4 py-2 rounded-md text-sm font-medium transition-colors duration-300",
+                "px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-300",
                 activeTab === tab
                   ? "bg-rose-600 text-white"
                   : "bg-gray-100 text-gray-600 hover:bg-gray-200"
@@ -206,42 +209,14 @@ const Info: React.FC<InfoProps> = ({ product }) => {
         </AnimatePresence>
       </div>
 
-      {/* <div className="flex flex-wrap gap-3 mb-8">
-        {product.flavor && (
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="flex items-center rounded-md bg-gradient-to-r from-amber-100 to-orange-100 px-4 py-2 text-sm font-medium text-orange-700 shadow-sm"
-          >
-            <Cake className="w-4 h-4 mr-2 text-orange-500" />
-            {product.flavor}
-          </motion.div>
-        )}
-        {product.weight && (
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="flex items-center rounded-md bg-gradient-to-r from-pink-100 to-rose-100 px-4 py-2 text-sm font-medium text-rose-700 shadow-sm"
-          >
-            <Weight className="w-4 h-4 mr-2 text-rose-500" />
-            {product.weight}
-          </motion.div>
-        )}
-        {product.category && (
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="flex items-center rounded-md bg-gradient-to-r from-teal-100 to-emerald-100 px-4 py-2 text-sm font-medium text-emerald-700 shadow-sm"
-          >
-            <Tag className="w-4 h-4 mr-2 text-emerald-500" />
-            {product.category}
-          </motion.div>
-        )}
-      </div> */}
-
-      <div className="bg-rose-50 rounded-md p-6 mb-8">
-        <div className="flex justify-between items-center mb-4">
-          <span className="text-lg font-semibold text-gray-700">Price</span>
-          <div className="flex flex-col items-end">
+      <div className="bg-rose-50 rounded-md p-4 sm:p-6 mb-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
+          <span className="text-lg font-semibold text-gray-700 mb-2 sm:mb-0">
+            Price
+          </span>
+          <div className="flex flex-col items-start sm:items-end">
             <div className="flex items-center">
-              <span className="text-3xl font-bold text-rose-600">
+              <span className="text-2xl sm:text-3xl font-bold text-rose-600">
                 ₹{totalPrice.toFixed(2)}
               </span>
               {product.discount > 0 && (
@@ -257,8 +232,10 @@ const Info: React.FC<InfoProps> = ({ product }) => {
             )}
           </div>
         </div>
-        <div className="flex justify-between items-center">
-          <span className="text-lg font-semibold text-gray-700">Quantity</span>
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
+          <span className="text-lg font-semibold text-gray-700 mb-2 sm:mb-0">
+            Quantity
+          </span>
           <div className="flex items-center gap-2">
             {[1, 2, 3].map((num) => (
               <motion.div
@@ -280,70 +257,84 @@ const Info: React.FC<InfoProps> = ({ product }) => {
         </div>
       </div>
 
-      <div className="mb-8">
-        <h2 className="text-lg font-semibold text-gray-700 mb-2">
-          Check Delivery Availability
-        </h2>
-        <div className="flex items-center space-x-2">
-          <div className="relative flex-grow">
-            <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <input
-              type="text"
-              value={pincode}
-              onChange={(e) =>
-                setPincode(e.target.value.replace(/\D/g, "").slice(0, 6))
-              }
-              placeholder="Enter your pincode"
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-500"
-            />
-          </div>
-          {/* <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={handlePincodeCheck}
-            className="px-4 py-2 bg-rose-600 text-white rounded-md hover:bg-rose-700 transition-colors duration-300"
-          >
-            Check
-          </motion.button> */}
-        </div>
+      <div className="mb-6">
+        <button
+          onClick={() => setIsAccordionOpen(!isAccordionOpen)}
+          className="flex justify-between items-center w-full p-4 bg-gray-100 rounded-md"
+        >
+          <span className="text-lg font-semibold text-gray-700">
+            Check Delivery Availability
+          </span>
+          {isAccordionOpen ? (
+            <ChevronUp className="w-5 h-5 text-gray-500" />
+          ) : (
+            <ChevronDown className="w-5 h-5 text-gray-500" />
+          )}
+        </button>
         <AnimatePresence>
-          {pincodeValid !== null && (
+          {isAccordionOpen && (
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className={cn(
-                "mt-2 p-2 rounded-md flex items-center",
-                pincodeValid
-                  ? "bg-green-100 text-green-800"
-                  : "bg-red-100 text-red-800"
-              )}
+              className="mt-4"
             >
-              {pincodeValid ? (
-                <>
-                  <Check className="w-5 h-5 mr-2" />
-                  Delivery available in your area!
-                </>
-              ) : (
-                <>
-                  <X className="w-5 h-5 mr-2" />
-                  Sorry, we don&apos;t deliver to this pincode yet.
-                </>
-              )}
+              <div className="flex items-center space-x-2">
+                <div className="relative flex-grow">
+                  <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                  <input
+                    type="text"
+                    value={pincode}
+                    onChange={(e) =>
+                      setPincode(e.target.value.replace(/\D/g, "").slice(0, 6))
+                    }
+                    placeholder="Enter your pincode"
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-500"
+                  />
+                </div>
+              </div>
+              <AnimatePresence>
+                {pincodeValid !== null && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.3 }}
+                    className={cn(
+                      "mt-2 p-2 rounded-md flex items-center",
+                      pincodeValid
+                        ? "bg-green-100 text-green-800"
+                        : "bg-red-100 text-red-800"
+                    )}
+                  >
+                    {pincodeValid ? (
+                      <>
+                        <Check className="w-5 h-5 mr-2" />
+                        Delivery available in your area!
+                      </>
+                    ) : (
+                      <>
+                        <X className="w-5 h-5 mr-2" />
+                        Sorry, we don't deliver to this pincode yet.
+                      </>
+                    )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
 
-      <div className="flex gap-4">
+      <div className="flex flex-col sm:flex-row gap-4">
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => addToCart(product)}
-          className="w-full flex items-center justify-center text-lg font-bold gap-3 py-4 bg-white text-black rounded-md transition-colors duration-300 border border-gray-500"
+          className="w-full flex items-center justify-center text-lg font-bold gap-3 py-3 sm:py-4 bg-white text-black rounded-md transition-colors duration-300 border border-gray-500"
         >
-          <ShoppingCart className="w-6 h-6" />
+          <ShoppingCart className="w-5 h-5 sm:w-6 sm:h-6" />
           Add to cart
         </motion.button>
 
@@ -351,9 +342,9 @@ const Info: React.FC<InfoProps> = ({ product }) => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleBuyNow}
-          className="w-full flex items-center justify-center text-lg font-bold gap-3 py-4 bg-gradient-to-r from-pink-400 to-rose-500 text-white rounded-md transition-all duration-300 hover:from-pink-500 hover:to-rose-600 shadow-lg hover:shadow-xl"
+          className="w-full flex items-center justify-center text-lg font-bold gap-3 py-3 sm:py-4 bg-gradient-to-r from-pink-400 to-rose-500 text-white rounded-md transition-all duration-300 hover:from-pink-500 hover:to-rose-600 shadow-lg hover:shadow-xl"
         >
-          <Cake className="w-6 h-6" />
+          <Cake className="w-5 h-5 sm:w-6 sm:h-6" />
           Buy Now
         </motion.button>
       </div>
