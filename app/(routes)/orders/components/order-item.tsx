@@ -1,9 +1,9 @@
-"use client";
 import React from "react";
 import { Orders } from "@/types";
-import Box from "@/components/Box";
+import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { Package, CreditCard } from "lucide-react";
 
 interface OrderItemProps {
   order: Orders;
@@ -11,75 +11,93 @@ interface OrderItemProps {
 
 const OrderItem = ({ order }: OrderItemProps) => {
   return (
-    <Box className="bg-white shadow-lg rounded-lg p-6">
-      <div className="w-full grid grid-cols-2 md:grid-cols-5 lg:grid-cols-6 gap-x-6 gap-y-8">
-        {/* Product Images */}
-        <div className="flex items-center gap-2 col-span-2 md:col-span-1">
-          {order.orderItems.map((item) => (
-            <div
-              key={item.id}
-              className="aspect-square w-24 h-24 rounded-md relative overflow-hidden bg-gray-100 shadow-inner"
-            >
-              <Image
-                src={item.images[0].url}
-                alt="Product Image"
-                fill
-                className="object-cover"
-              />
+    <Card className="w-full overflow-hidden transition-all hover:shadow-lg">
+      <CardContent className="p-6">
+        <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-6">
+          {/* Product Images */}
+          <div className="flex-shrink-0">
+            <div className="flex -space-x-4 overflow-hidden">
+              {order.orderItems.slice(0, 3).map((item, index) => (
+                <div
+                  key={item.id}
+                  className={cn(
+                    "relative w-16 h-16 rounded-full border-2 border-white",
+                    index > 0 && "ml--4"
+                  )}
+                >
+                  <Image
+                    src={item.images[0].url}
+                    alt={item.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              ))}
+              {order.orderItems.length > 3 && (
+                <div className="flex items-center justify-center w-16 h-16 rounded-full bg-gray-200 border-2 border-white text-gray-600 font-semibold">
+                  +{order.orderItems.length - 3}
+                </div>
+              )}
             </div>
-          ))}
-        </div>
+          </div>
 
-        {/* Product Details */}
-        <div className="flex flex-col justify-center col-span-2 md:col-span-2">
-          <p className="text-lg font-semibold text-gray-900">
-            {order.orderItems.map((item) => item.name).join(", ")}
-          </p>
-          <div className="flex space-x-4 mt-2">
-            <p className="text-base text-gray-600">
-              {order.orderItems
-                .map((item) => `Qty: ${item.quantity}`)
-                .join(", ")}
-            </p>
-            <p className="text-base text-gray-600">
-              {order.orderItems.map((item) => `₹${item.price}`).join(", ")}
-            </p>
+          {/* Order Details */}
+          <div className="flex-grow">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              {order.orderItems.map((item) => item.name).join(", ")}
+            </h3>
+            <div className="flex flex-wrap gap-2 text-sm text-gray-600">
+              <span>
+                Qty:{" "}
+                {order.orderItems.reduce((sum, item) => sum + item.quantity, 0)}
+              </span>
+              <span>•</span>
+              <span>
+                Total: ₹
+                {order.orderItems
+                  .reduce((sum, item) => sum + item.price * item.quantity, 0)
+                  .toFixed(2)}
+              </span>
+            </div>
+          </div>
+
+          {/* Status */}
+          <div className="flex flex-col space-y-2 md:items-end">
+            <div className="flex items-center space-x-2">
+              <Package size={18} />
+              <span
+                className={cn(
+                  "text-sm font-medium py-1 px-2 rounded-full",
+                  order.order_status === "Delivering" &&
+                    "bg-yellow-100 text-yellow-700",
+                  order.order_status === "Processing" &&
+                    "bg-blue-100 text-blue-700",
+                  order.order_status === "Delivered" &&
+                    "bg-green-100 text-green-700",
+                  order.order_status === "Cancelled" &&
+                    "bg-red-100 text-red-700"
+                )}
+              >
+                {order.order_status}
+              </span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <CreditCard size={18} />
+              <span
+                className={cn(
+                  "text-sm font-medium py-1 px-2 rounded-full",
+                  order.isPaid
+                    ? "bg-green-100 text-green-700"
+                    : "bg-red-100 text-red-700"
+                )}
+              >
+                {order.isPaid ? "Paid" : "Unpaid"}
+              </span>
+            </div>
           </div>
         </div>
-
-        {/* Order Status */}
-        <div className="flex items-center col-span-1 md:col-span-1 lg:col-span-1">
-          <p
-            className={cn(
-              "text-base font-semibold py-2 px-4 rounded-full",
-              order.order_status === "Delivering" &&
-                "bg-yellow-100 text-yellow-600",
-              order.order_status === "Processing" &&
-                "bg-orange-100 text-orange-600",
-              order.order_status === "Delivered" &&
-                "bg-green-100 text-green-600",
-              order.order_status === "Cancelled" && "bg-red-100 text-red-600"
-            )}
-          >
-            {order.order_status}
-          </p>
-        </div>
-
-        {/* Payment Status */}
-        <div className="flex items-center col-span-1 md:col-span-1 lg:col-span-1">
-          <p
-            className={cn(
-              "text-base font-semibold py-2 px-4 rounded-full",
-              order.isPaid
-                ? "bg-green-100 text-green-600"
-                : "bg-red-100 text-red-600"
-            )}
-          >
-            {order.isPaid ? "Paid" : "Not Paid"}
-          </p>
-        </div>
-      </div>
-    </Box>
+      </CardContent>
+    </Card>
   );
 };
 

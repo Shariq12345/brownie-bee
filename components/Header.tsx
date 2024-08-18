@@ -61,7 +61,7 @@ const Header = ({ userId }: Props) => {
                 {userId ? (
                   <UserButton />
                 ) : (
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-2 ml-3">
                     <Link href="/sign-in">
                       <Button variant={"outline"}>Login</Button>
                     </Link>

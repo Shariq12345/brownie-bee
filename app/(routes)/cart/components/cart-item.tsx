@@ -21,8 +21,8 @@ const CartItem = ({ item }: CartItemProps) => {
   };
 
   return (
-    <div className="flex items-center gap-6 bg-white p-6 rounded-xl shadow-md border border-pink-100 mb-4 transition-all hover:shadow-lg">
-      <div className="aspect-square w-28 h-28 rounded-lg bg-pink-50 flex items-center justify-center relative overflow-hidden">
+    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 bg-white p-4 sm:p-6 rounded-xl shadow-md border border-pink-100 mb-4 transition-all hover:shadow-lg">
+      <div className="aspect-square w-full sm:w-28 h-40 sm:h-28 rounded-lg bg-pink-50 flex items-center justify-center relative overflow-hidden">
         <Image
           src={item.images[0].url}
           alt={item.name}
@@ -31,10 +31,12 @@ const CartItem = ({ item }: CartItemProps) => {
         />
       </div>
 
-      <div className="flex-grow">
-        <h2 className="font-serif text-2xl text-pink-800 mb-2">{item.name}</h2>
+      <div className="flex-grow w-full sm:w-auto">
+        <h2 className="font-serif text-xl sm:text-2xl text-pink-800 mb-2">
+          {item.name}
+        </h2>
 
-        <div className="flex items-center gap-2 mb-3">
+        <div className="flex flex-wrap items-center gap-2 mb-3">
           {item.flavor && (
             <span className="rounded-full bg-yellow-100 px-3 py-1 text-xs font-medium text-yellow-800">
               {item.flavor}
@@ -72,17 +74,17 @@ const CartItem = ({ item }: CartItemProps) => {
               <Plus className="h-4 w-4" />
             </Button>
           </div>
+          <Button
+            size="sm"
+            variant="ghost"
+            onClick={() => cart.removeItem(item.id)}
+            className="text-gray-400 hover:text-red-500 hover:bg-red-50 ml-2 sm:ml-0"
+          >
+            <Trash2 className="h-5 w-5" />
+            <span className="sr-only">Remove item</span>
+          </Button>
         </div>
       </div>
-
-      <Button
-        size="icon"
-        variant="ghost"
-        onClick={() => cart.removeItem(item.id)}
-        className="text-gray-400 hover:text-red-500 hover:bg-red-50"
-      >
-        <Trash2 className="h-5 w-5" />
-      </Button>
     </div>
   );
 };

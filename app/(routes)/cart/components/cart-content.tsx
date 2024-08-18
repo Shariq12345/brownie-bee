@@ -45,16 +45,16 @@ const CartContent = ({ userId }: CartContentProps) => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="text-3xl font-serif font-bold text-pink-800">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
+      <div className="flex flex-col sm:flex-row items-center justify-between mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-serif font-bold text-pink-800 mb-4 sm:mb-0">
           Your Cart
         </h1>
         {cart.items.length > 0 && (
           <Button
             onClick={cart.removeAll}
             variant="outline"
-            className="text-red-600 border-red-300 hover:bg-red-50"
+            className="text-red-600 border-red-300 hover:bg-red-50 w-full sm:w-auto"
           >
             Clear Cart
             <Trash2 className="w-4 h-4 ml-2" />
@@ -63,7 +63,7 @@ const CartContent = ({ userId }: CartContentProps) => {
       </div>
 
       {cart.items.length === 0 ? (
-        <div className="text-center py-12">
+        <div className="text-center py-12 bg-white rounded-lg shadow-sm">
           <ShoppingBag className="mx-auto h-12 w-12 text-gray-400" />
           <h2 className="mt-2 text-lg font-medium text-gray-900">
             Your cart is empty
@@ -74,50 +74,57 @@ const CartContent = ({ userId }: CartContentProps) => {
         </div>
       ) : (
         <div className="lg:grid lg:grid-cols-12 lg:gap-x-12 lg:items-start">
-          <div className="lg:col-span-7">
-            <ul role="list" className="divide-y divide-gray-200">
+          <div className="lg:col-span-7 mb-8 lg:mb-0">
+            <ul
+              role="list"
+              className="divide-y divide-gray-200 bg-white rounded-lg shadow-sm overflow-hidden"
+            >
               {cart.items.map((item) => (
-                <li key={item.id} className="py-6">
+                <li key={item.id} className="p-4 sm:p-6">
                   <CartItem item={item} />
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="mt-16 rounded-lg bg-gray-50 px-4 py-6 sm:p-6 lg:col-span-5 lg:mt-0 lg:p-8">
-            <h2 className="text-lg font-medium text-gray-900">Order Summary</h2>
-            <dl className="mt-6 space-y-4">
-              {cart.items.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex items-center justify-between"
-                >
-                  <dt className="text-sm text-gray-600">
-                    {item.name} (x{item.quantity})
+          <div className="lg:col-span-5">
+            <div className="rounded-lg bg-white shadow-sm px-4 py-6 sm:p-6 lg:p-8">
+              <h2 className="text-lg font-medium text-gray-900 mb-4">
+                Order Summary
+              </h2>
+              <dl className="space-y-4">
+                {cart.items.map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex items-center justify-between"
+                  >
+                    <dt className="text-sm text-gray-600">
+                      {item.name} (x{item.quantity})
+                    </dt>
+                    <dd className="text-sm font-medium text-gray-900">
+                      ₹{(item.price * item.quantity).toFixed(2)}
+                    </dd>
+                  </div>
+                ))}
+                <Separator className="my-4" />
+                <div className="flex items-center justify-between pt-4">
+                  <dt className="text-base font-medium text-gray-900">
+                    Order Total
                   </dt>
-                  <dd className="text-sm font-medium text-gray-900">
-                    ₹{(item.price * item.quantity).toFixed(2)}
+                  <dd className="text-xl font-semibold text-pink-600">
+                    ₹{totalPrice.toFixed(2)}
                   </dd>
                 </div>
-              ))}
-              <Separator />
-              <div className="flex items-center justify-between border-t border-gray-200 pt-4">
-                <dt className="text-base font-medium text-gray-900">
-                  Order Total
-                </dt>
-                <dd className="text-xl font-semibold text-pink-600">
-                  ₹{totalPrice.toFixed(2)}
-                </dd>
-              </div>
-            </dl>
+              </dl>
 
-            <div className="mt-6">
-              <Button
-                className="w-full bg-pink-600 hover:bg-pink-700 text-white"
-                onClick={onCheckOut}
-              >
-                Proceed to Checkout 
-              </Button>
+              <div className="mt-6">
+                <Button
+                  className="w-full bg-pink-600 hover:bg-pink-700 text-white py-3 text-lg"
+                  onClick={onCheckOut}
+                >
+                  Proceed to Checkout
+                </Button>
+              </div>
             </div>
           </div>
         </div>
