@@ -116,7 +116,7 @@ const CartContent = ({ userId }: CartContentProps) => {
                 className="w-full bg-pink-600 hover:bg-pink-700 text-white"
                 onClick={onCheckOut}
               >
-                Proceed to Checkout
+                Proceed to Checkout 
               </Button>
             </div>
           </div>

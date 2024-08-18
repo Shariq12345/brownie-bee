@@ -17,14 +17,6 @@ const ContactPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Map Section */}
             <div className="rounded-lg overflow-hidden shadow-lg">
-              {/* <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11672.945750644447!2d-122.42107853750231!3d37.7730507907087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858070cc2fbd55%3A0xa71491d736f62d5c!2sGolden%20Gate%20Bridge!5e0!3m2!1sen!2sus!4v1619524992238!5m2!1sen!2sus"
-                width="100%"
-                height="480"
-                allowFullScreen=""
-                loading="lazy"
-                className="border-none"
-              ></iframe> */}
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.692747625502!2d72.87775677479272!3d19.077241982127553!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c9ecfd03f4bd%3A0x816e42ac4dc6e43d!2sBrownie%20Bee%20the%20cake%20boutique!5e0!3m2!1sen!2sin!4v1722621539076!5m2!1sen!2sin"
                 width="100%"

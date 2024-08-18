@@ -24,7 +24,7 @@ export default function RootLayout({
       <html lang="en">
         <head>
           <link
-            href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@400;700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Lobster&family=Quicksand:wght@300;400;500;600;700&display=swap"
             rel="stylesheet"
           />
           <style>{`
@@ -46,7 +46,7 @@ export default function RootLayout({
             }
           `}</style>
         </head>
-        <body className={cn("bg-background antialiased font-sans")}>
+        <body className={cn("bg-background antialiased")}>
           <ToastProvider />
           <img
             src="/img/hero.svg"
@@ -54,7 +54,7 @@ export default function RootLayout({
             className="background-svg"
           />
           <Header userId={userId} />
-          <main className="font-sans relative z-10">{children}</main>
+          <main className="relative z-10">{children}</main>
           <Footer />
         </body>
       </html>

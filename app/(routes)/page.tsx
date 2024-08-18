@@ -14,7 +14,7 @@ const HomePage = async () => {
   const products = await getProducts({ isFeatured: true });
 
   return (
-    <div className="bg-white px-2">
+    <div className="bg-white sm:px-2 lg:px-0 md:px-0">
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-pink-50 to-pink-100">
         <Container>

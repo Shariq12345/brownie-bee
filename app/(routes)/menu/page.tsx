@@ -43,7 +43,7 @@ const MenuPage = async ({ searchParams }: MenuPageProps) => {
   return (
     <div className="bg-gray-50 min-h-screen">
       <Container className="px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12">
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 lg:mb-8">
+        <h1 className="text-3xl sm:text-4xl lg:text-4xl font-bold text-gray-900 mb-6 lg:mb-8">
           Our Menu
         </h1>
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
@@ -77,7 +77,7 @@ const MenuPage = async ({ searchParams }: MenuPageProps) => {
           {/* Desktop Filters */}
           <div className="hidden lg:block w-1/4 xl:w-1/5">
             <div className="bg-white rounded-lg shadow-sm p-6 sticky top-24 transition-all duration-300 hover:shadow-md">
-              <h2 className="text-xl font-semibold mb-4">Filters</h2>
+              {/* <h2 className="text-xl font-semibold mb-4">Filters</h2> */}
               <FilterContainer>
                 <CategoryFilters categories={categories} />
                 <WeightFilters weights={weights} />
