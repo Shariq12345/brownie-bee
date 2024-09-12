@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { useAuth } from "@clerk/nextjs";
 
 interface InfoProps {
   product: Products;
@@ -39,6 +40,7 @@ const Info: React.FC<InfoProps> = ({ product }) => {
   const [pincodeValid, setPincodeValid] = useState<boolean | null>(null);
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const [cakeMessage, setCakeMessage] = useState("");
+  const { isSignedIn } = useAuth();
 
   const discountedPrice = product.discount
     ? product.price * (1 - product.discount / 100)
@@ -54,10 +56,18 @@ const Info: React.FC<InfoProps> = ({ product }) => {
   };
 
   const addToCart = (data: Products) => {
+    if (!isSignedIn) {
+      router.push("/sign-in"); // Redirect to sign-in page if not signed in
+      return;
+    }
     cart.addItem({ ...data, quantity: quantity, price: discountedPrice });
   };
 
   const handleBuyNow = () => {
+    if (!isSignedIn) {
+      router.push("/sign-in"); // Redirect to sign-in page if not signed in
+      return;
+    }
     addToCart(product);
     router.push("/cart");
   };
