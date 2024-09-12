@@ -1,12 +1,18 @@
 "use client";
 
 import React from "react";
-import Box from "@/components/Box";
-import { cn } from "@/lib/utils";
-import { Category } from "@/types";
 import { useRouter, useSearchParams } from "next/navigation";
 import qs from "query-string";
 import { Check } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { cn } from "@/lib/utils";
+import { Category } from "@/types";
+import Box from "@/components/Box";
 
 interface CategoryFiltersProps {
   categories: Category[];
@@ -46,14 +52,14 @@ const CategoryFilters = ({ categories }: CategoryFiltersProps) => {
               category.name === searchParams.get("category") && "text-rose-700"
             )}
           >
-            <div className="w-4 h-4 border border-neutral-300 rounded flex items-center justify-center">
-              {category.name === searchParams.get("category") && (
-                <Check className="w-3 h-3 text-rose-700" />
-              )}
-            </div>
-            <p>{category.name}</p>
-          </div>
-        ))}
+                <div className="w-4 h-4 border border-neutral-300 rounded-sm flex items-center justify-center">
+                  {category.name === searchParams.get("category") && (
+                    <Check className="w-3 h-3 text-rose-700" />
+                  )}
+                </div>
+                <span>{category.name}</span>
+              </div>
+            ))}
       </Box>
     </Box>
   );

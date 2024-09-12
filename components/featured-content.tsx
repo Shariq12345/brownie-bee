@@ -9,6 +9,7 @@ import { Heart, ShoppingCart } from "lucide-react";
 import useCart from "@/hooks/use-cart";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@clerk/nextjs";
 
 interface FeaturedContentProps {
   data: Products;
@@ -18,6 +19,7 @@ const FeaturedContent: React.FC<FeaturedContentProps> = ({ data }) => {
   const [isLiked, setIsLiked] = useState(false);
   const router = useRouter();
   const cart = useCart();
+  const { isSignedIn } = useAuth();
 
   const discountedPrice = data.discount
     ? data.price * (1 - data.discount / 100)
@@ -25,6 +27,10 @@ const FeaturedContent: React.FC<FeaturedContentProps> = ({ data }) => {
 
   const addToCart = (e: React.MouseEvent) => {
     e.preventDefault();
+    if (!isSignedIn) {
+      router.push("/sign-in"); // Redirect to sign-in page if not signed in
+      return;
+    }
     cart.addItem({ ...data, quantity: 1, price: discountedPrice });
   };
 

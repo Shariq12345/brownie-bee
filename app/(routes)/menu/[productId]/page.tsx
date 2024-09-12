@@ -1,7 +1,6 @@
 import React from "react";
 import getProduct from "@/actions/get-product";
 import getProducts from "@/actions/get-products";
-import getReviews from "@/actions/get-reviews";
 import Container from "@/components/Container";
 import Box from "@/components/Box";
 import Link from "next/link";
@@ -9,7 +8,6 @@ import { ChevronRight, Home } from "lucide-react";
 import Gallery from "./components/gallery/Gallery";
 import Info from "./components/info";
 import SuggestedProducts from "./components/suggested-products";
-import Reviews from "./components/Reviews";
 
 export const revalidate = 0;
 
@@ -24,7 +22,6 @@ const ProductPage = async ({ params }: ProductPageProps) => {
   const suggestedProducts = await getProducts({
     category: product?.category,
   });
-  const reviews = await getReviews(params.productId);
 
   return (
     <div>
@@ -43,12 +40,13 @@ const ProductPage = async ({ params }: ProductPageProps) => {
               Products
             </Link>
             <ChevronRight className="size-5 text-muted-foreground" />
-            <Link
+            {/* <Link
               href={`/menu/${product.category}`}
               className="flex items-center gap-2 text-muted-foreground cursor-default"
-            >
+            > */}
+            <p className="flex items-center gap-2 text-muted-foreground cursor-default">
               {product.name}
-            </Link>
+            </p>
           </div>
         </Box>
 
@@ -65,9 +63,8 @@ const ProductPage = async ({ params }: ProductPageProps) => {
           <hr className="my-10" />
 
           {/* REVIEWS */}
-          <Reviews reviews={reviews} productId={params.productId} />
-
-          <hr className="my-10" />
+          {/* <Reviews reviews={reviews} productId={params.productId} />
+          <hr className="my-10" /> */}
 
           <SuggestedProducts products={suggestedProducts} />
         </div>

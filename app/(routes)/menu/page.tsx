@@ -57,13 +57,16 @@ const MenuPage = async ({ searchParams }: MenuPageProps) => {
                 <Filter className="mr-2 h-4 w-4" /> Filters
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+            <SheetContent
+              side="left"
+              className="w-[300px] sm:w-[400px] max-h-[80vh] overflow-y-auto sheet-content-scroll"
+            >
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-xl font-semibold">Filters</h2>
                 <SheetClose asChild>
-                  <Button variant="ghost" size="icon">
-                    <X className="h-4 w-4" />
-                  </Button>
+                  {/* <Button variant="ghost" size="icon">
+        <X className="h-4 w-4" />
+      </Button> */}
                 </SheetClose>
               </div>
               <FilterContainer>
@@ -76,8 +79,11 @@ const MenuPage = async ({ searchParams }: MenuPageProps) => {
 
           {/* Desktop Filters */}
           <div className="hidden lg:block w-1/4 xl:w-1/5">
-            <div className="bg-white rounded-lg shadow-sm p-6 sticky top-24 transition-all duration-300 hover:shadow-md">
-              {/* <h2 className="text-xl font-semibold mb-4">Filters</h2> */}
+            <div
+              className="bg-white rounded-lg shadow-sm p-6 sticky top-24 max-h-screen overflow-y-auto transition-all duration-300 hover:shadow-md filter-container"
+              style={{ height: "calc(100vh - 6rem)" }}
+            >
+              <h2 className="text-xl font-semibold mb-4">Filters</h2>
               <FilterContainer>
                 <CategoryFilters categories={categories} />
                 <WeightFilters weights={weights} />

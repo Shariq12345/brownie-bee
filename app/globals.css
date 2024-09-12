@@ -107,3 +107,76 @@ h6 {
   padding: 0;
   height: 0;
 }
+
+/* Hide scrollbar by default */
+.filter-container {
+  scrollbar-width: none; /* For Firefox */
+}
+
+.filter-container::-webkit-scrollbar {
+  width: 0; /* For Chrome, Safari, and Edge */
+}
+
+/* Show scrollbar on hover */
+.filter-container:hover {
+  scrollbar-width: thin; /* For Firefox */
+}
+
+.filter-container:hover::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Custom scrollbar track */
+.filter-container::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Light gray background */
+  border-radius: 10px;
+}
+
+/* Custom scrollbar handle */
+.filter-container::-webkit-scrollbar-thumb {
+  background-color: #888; /* Darker thumb */
+  border-radius: 10px;
+  border: 2px solid transparent; /* Add a little padding inside the scrollbar */
+}
+
+/* Custom scrollbar handle on hover */
+.filter-container::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Darker when hovered */
+}
+
+/* Hide scrollbar by default */
+.sheet-content-scroll {
+  scrollbar-width: none; /* For Firefox */
+}
+
+.sheet-content-scroll::-webkit-scrollbar {
+  width: 0; /* For Chrome, Safari, and Edge */
+}
+
+/* Show scrollbar on hover */
+.sheet-content-scroll:hover {
+  scrollbar-width: thin; /* For Firefox */
+}
+
+.sheet-content-scroll:hover::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Custom scrollbar track */
+.sheet-content-scroll::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Light gray background */
+  border-radius: 10px;
+}
+
+/* Custom scrollbar handle */
+.sheet-content-scroll::-webkit-scrollbar-thumb {
+  background-color: #888; /* Darker thumb */
+  border-radius: 10px;
+  border: 2px solid transparent; /* Add a little padding inside the scrollbar */
+}
+
+/* Custom scrollbar handle on hover */
+.sheet-content-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Darker when hovered */
+}
+

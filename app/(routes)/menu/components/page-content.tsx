@@ -45,7 +45,10 @@ const PageContent = ({ products }: PageContentProps) => {
           {searchParams.get("category") && (
             <>
               <ChevronRight className="size-5 text-muted-foreground" />
-              <Link href={"/menu"} className="flex items-center gap-2">
+              <Link
+                href={"/menu"}
+                className="flex items-center gap-2 font-bold"
+              >
                 {searchParams.get("category")}
               </Link>
             </>
@@ -75,7 +78,7 @@ const PageContent = ({ products }: PageContentProps) => {
         </Box>
       </Box>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 w-full h-full gap-4 gap-y-24">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full h-full gap-4 gap-y-20">
         {products.length > 0 ? (
           <>
             {products.map((product) => (
@@ -84,7 +87,7 @@ const PageContent = ({ products }: PageContentProps) => {
           </>
         ) : (
           <>
-            <Box className=" col-span-10 items-center justify-center py-12 text-muted-foreground text-xl font-bold">
+            <Box className=" col-span-full items-center justify-center py-12 text-muted-foreground text-xl font-bold">
               No products found
             </Box>
           </>

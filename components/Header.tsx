@@ -34,7 +34,7 @@ const Header = ({ userId }: Props) => {
   return (
     <header
       className={cn(
-        "w-full z-50 transition",
+        "w-full z-50 transition-all duration-300 ease-in-out",
         scrolled ? "fixed top-0 left-0 bg-white shadow-lg" : "bg-transparent"
       )}
     >

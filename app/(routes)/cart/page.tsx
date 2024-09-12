@@ -6,8 +6,9 @@ import Link from "next/link";
 import CartContent from "./components/cart-content";
 import { auth } from "@clerk/nextjs/server";
 
-const CartPage = () => {
+const CartPage = async () => {
   const { userId } = auth();
+
   return (
     <div className="">
       <Container className="bg-white py-12 my-4 h-full">
