@@ -11,6 +11,7 @@ import getFlavors from "@/actions/get-flavors";
 import getWeights from "@/actions/get-weights";
 import { Filter, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import SearchBar from "./components/search-bar";
 import {
   Sheet,
   SheetContent,
@@ -22,6 +23,7 @@ export const revalidate = 0;
 
 interface MenuPageProps {
   searchParams: {
+    search?: string;
     weight?: string;
     flavor?: string;
     category?: string;
@@ -33,7 +35,9 @@ const MenuPage = async ({ searchParams }: MenuPageProps) => {
   const categories = await getCategories();
   const weights = await getWeights();
   const flavors = await getFlavors();
+  const searchTerm = searchParams?.search;
   const products = await getProducts({
+    search: searchTerm,
     weight: searchParams?.weight,
     flavor: searchParams?.flavor,
     category: searchParams?.category,
@@ -95,6 +99,7 @@ const MenuPage = async ({ searchParams }: MenuPageProps) => {
           {/* Product Content */}
           <div className="w-full lg:w-3/4 xl:w-4/5">
             <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 transition-all duration-300 hover:shadow-md">
+              <SearchBar />
               <PageContent products={products} />
             </div>
           </div>
