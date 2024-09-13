@@ -3,30 +3,13 @@ import { Orders } from "@/types";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { Package, CreditCard, Truck, CheckCircle, XCircle } from "lucide-react";
+import { Package, CreditCard } from "lucide-react";
 
 interface OrderItemProps {
   order: Orders;
 }
 
 const OrderItem = ({ order }: OrderItemProps) => {
-  const orderSteps = [
-    { status: "Processing", icon: Package, label: "Processing" },
-    { status: "Delivering", icon: Truck, label: "Delivering" },
-    { status: "Delivered", icon: CheckCircle, label: "Delivered" },
-    { status: "Cancelled", icon: XCircle, label: "Cancelled" },
-  ];
-
-  const currentStepIndex = orderSteps.findIndex(
-    (step) => step.status === order.order_status
-  );
-
-  const getProgressWidth = () => {
-    if (order.order_status === "Cancelled") return "100%";
-    if (currentStepIndex === -1) return "0%";
-    return `${(currentStepIndex / (orderSteps.length - 2)) * 100}%`;
-  };
-
   return (
     <Card className="w-full overflow-hidden transition-all hover:shadow-lg">
       <CardContent className="p-6">
@@ -39,7 +22,7 @@ const OrderItem = ({ order }: OrderItemProps) => {
                   key={item.id}
                   className={cn(
                     "relative w-16 h-16 rounded-full border-2 border-white",
-                    index > 0 && "-ml-4"
+                    index > 0 && "ml--4"
                   )}
                 >
                   <Image
@@ -70,7 +53,7 @@ const OrderItem = ({ order }: OrderItemProps) => {
               </span>
               <span>•</span>
               <span>
-                Total: ₹{" "}
+                Total: ₹
                 {order.orderItems
                   .reduce((sum, item) => sum + item.price * item.quantity, 0)
                   .toFixed(2)}
@@ -110,59 +93,6 @@ const OrderItem = ({ order }: OrderItemProps) => {
               >
                 {order.isPaid ? "Paid" : "Unpaid"}
               </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Progress Bar */}
-        <div className="mt-6">
-          <div className="relative">
-            <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200">
-              <div
-                style={{ width: getProgressWidth() }}
-                className={cn(
-                  "shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center transition-all duration-500",
-                  order.order_status === "Cancelled"
-                    ? "bg-red-500"
-                    : "bg-blue-500"
-                )}
-              ></div>
-            </div>
-            <div className="flex justify-between">
-              {orderSteps.map((step, index) => {
-                const Icon = step.icon;
-                const isActive =
-                  index <= currentStepIndex ||
-                  order.order_status === "Cancelled";
-                const isCancelled =
-                  order.order_status === "Cancelled" &&
-                  index === orderSteps.length - 1;
-                return (
-                  <div
-                    key={index}
-                    className={cn(
-                      "flex flex-col items-center",
-                      index === 3 && "hidden md:flex"
-                    )}
-                  >
-                    <div
-                      className={cn(
-                        "rounded-full p-2",
-                        isActive
-                          ? isCancelled
-                            ? "bg-red-500 text-white"
-                            : "bg-blue-500 text-white"
-                          : "bg-gray-200 text-gray-400"
-                      )}
-                    >
-                      <Icon size={16} />
-                    </div>
-                    <span className="text-xs mt-1 text-center">
-                      {step.label}
-                    </span>
-                  </div>
-                );
-              })}
             </div>
           </div>
         </div>

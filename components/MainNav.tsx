@@ -1,3 +1,4 @@
+// MainNav.tsx
 "use client";
 import React from "react";
 import { useParams, usePathname, useRouter } from "next/navigation";
@@ -53,14 +54,6 @@ const MainNav = ({
     },
   ];
 
-  const linkStyles = (active: boolean) => {
-    if (scrolled) {
-      return active ? "text-black font-bold underline" : "text-gray-600";
-    } else {
-      return active ? "text-gray-800 font-bold underline" : "text-black";
-    }
-  };
-
   if (isMobile) {
     return (
       <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
@@ -96,7 +89,13 @@ const MainNav = ({
             key={route.href}
             className={cn(
               "text-base font-medium transition-colors hover:text-primary",
-              linkStyles(route.active)
+              route.active
+                ? `${
+                    scrolled
+                      ? "text-hero font-bold"
+                      : "text-black dark:text-white"
+                  }`
+                : `${scrolled ? "text-black" : "text-white"}`
             )}
           >
             {route.label}
