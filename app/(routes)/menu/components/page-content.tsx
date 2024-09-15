@@ -31,7 +31,7 @@ const PageContent = ({ products }: PageContentProps) => {
   };
   return (
     <>
-      <Box className="pt-4 pb-24 flex-col items-start">
+      <Box className="pt-4 pb-10 flex-col items-start">
         <Box className="text-neutral-700 text-sm text-center">
           <Link href={"/"} className="flex items-center gap-2">
             <Home className="size-4" />

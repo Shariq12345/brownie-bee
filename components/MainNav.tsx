@@ -1,12 +1,13 @@
 "use client";
 import React from "react";
-import { useParams, usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useMedia } from "react-use";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { Sheet, SheetContent } from "./ui/sheet";
 import { Button } from "./ui/button";
-import { Menu } from "lucide-react";
+import { useAuth, UserButton } from "@clerk/nextjs";
+import CartButton from "./cart-button";
 
 interface MainNavProps extends React.HTMLAttributes<HTMLElement> {
   scrolled: boolean;
@@ -61,11 +62,13 @@ const MainNav = ({
     }
   };
 
+  const { userId } = useAuth();
+
   if (isMobile) {
     return (
       <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-        <SheetContent side="right" className="px-2">
-          <nav className="flex flex-col gap-y-2 pt-6">
+        <SheetContent side="right" className="px-4">
+          <nav className="flex flex-col gap-y-4 pt-6">
             {routes.map((route) => (
               <Button
                 key={route.href}

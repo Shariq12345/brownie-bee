@@ -20,6 +20,16 @@ export interface Offers {
   discount: number;
 }
 
+export interface Review {
+  id: string;
+  content: string;
+  userName: string;
+  emailAddress: string;
+  rating: number;
+  productId: string;
+  createdAt: string;
+}
+
 export interface Category {
   id: string;
   billboardId: string;

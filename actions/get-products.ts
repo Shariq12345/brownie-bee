@@ -8,7 +8,6 @@ interface Query {
   flavor?: string;
   weight?: string;
   search?: string;
-
   isFeatured?: boolean;
 }
 

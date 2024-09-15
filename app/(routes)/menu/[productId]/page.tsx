@@ -8,6 +8,8 @@ import { ChevronRight, Home } from "lucide-react";
 import Gallery from "./components/gallery/Gallery";
 import Info from "./components/info";
 import SuggestedProducts from "./components/suggested-products";
+import { Reviews } from "./components/reviews";
+import getReviews from "@/actions/get-reviews";
 
 export const revalidate = 0;
 
@@ -22,7 +24,8 @@ const ProductPage = async ({ params }: ProductPageProps) => {
   const suggestedProducts = await getProducts({
     category: product?.category,
   });
-
+  const reviews = await getReviews(params.productId);
+  // console.log(reviews);
   return (
     <div>
       <Container className="bg-white rounded-lg my-4 px-4">
@@ -63,8 +66,8 @@ const ProductPage = async ({ params }: ProductPageProps) => {
           <hr className="my-10" />
 
           {/* REVIEWS */}
-          {/* <Reviews reviews={reviews} productId={params.productId} />
-          <hr className="my-10" /> */}
+          <Reviews initialReviews={reviews} productId={params.productId} />
+          <hr className="my-10" />
 
           <SuggestedProducts products={suggestedProducts} />
         </div>

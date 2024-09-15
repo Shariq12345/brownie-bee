@@ -100,15 +100,13 @@ const Header = ({ userId }: Props) => {
             {/* Mobile Navigation */}
             {isMobile && (
               <div className="flex items-center space-x-4">
-                {userId && <CartButton />}
-                {/* Search Icon */}
-                <button
+                {/* <button
                   onClick={handleSearchClick}
                   className="focus:outline-none transition-transform duration-200 ease-in-out hover:scale-110"
                   aria-label="Search"
                 >
                   <Search className="h-5 w-5 text-neutral-700" />
-                </button>
+                </button> */}
                 {userId ? (
                   <UserButton />
                 ) : (
@@ -118,6 +116,8 @@ const Header = ({ userId }: Props) => {
                     </Button>
                   </Link>
                 )}
+                {userId && <CartButton />}
+                {/* Search Icon */}
                 <Button
                   variant="ghost"
                   size="sm"
