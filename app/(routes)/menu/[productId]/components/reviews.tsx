@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { useUser } from "@clerk/nextjs";
 import { Review } from "@/types";
-import { StarIcon, Loader2 } from "lucide-react";
+import { StarIcon, Loader2, TrashIcon, PencilIcon } from "lucide-react";
 
 const formSchema = z.object({
   content: z.string().min(1),
@@ -278,13 +278,15 @@ export const Reviews = ({ productId, initialReviews }: ReviewsProps) => {
                           onClick={() => handleEdit(review)}
                           className="bg-yellow-500 text-white hover:bg-yellow-600"
                         >
-                          Edit
+                          <PencilIcon className="size-4" />
+                          {/* Edit */}
                         </Button>
                         <Button
                           onClick={() => handleDelete(review.id)}
                           className="bg-red-500 text-white hover:bg-red-600"
                         >
-                          Delete
+                          <TrashIcon className="size-4" />
+                          {/* Delete */}
                         </Button>
                       </div>
                     )}

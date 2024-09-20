@@ -1,9 +1,16 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import useCart from "@/hooks/use-cart";
-import { Trash2, ShoppingBag } from "lucide-react";
+import {
+  Trash2,
+  ShoppingBag,
+  Pencil,
+  MessageCircle,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import CartItem from "./cart-item";
@@ -17,6 +24,12 @@ interface CartContentProps {
 const CartContent = ({ userId }: CartContentProps) => {
   const cart = useCart();
   const searchParams = useSearchParams();
+  const [cakeMessage, setCakeMessage] = useState("");
+  const [note, setOrderNote] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [showMessageArea, setShowMessageArea] = useState(false);
+  const [showNoteArea, setShowNoteArea] = useState(false);
+
   const totalPrice = cart.items.reduce((total, item) => {
     return total + Number(item.price * item.quantity);
   }, 0);
@@ -33,16 +46,33 @@ const CartContent = ({ userId }: CartContentProps) => {
   }, [searchParams, cart.removeAll]);
 
   const onCheckOut = async () => {
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/checkout`,
-      {
-        products: cart.items,
-        userId,
-      }
-    );
-
-    window.location = response.data.url;
+    setIsLoading(true);
+    try {
+      console.log(
+        "Attempting to checkout with URL:",
+        `${process.env.NEXT_PUBLIC_API_URL}/checkout`
+      );
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/checkout`,
+        {
+          products: cart.items,
+          userId,
+          cakeMessage,
+          note,
+        }
+      );
+      console.log("Checkout response:", response);
+      window.location = response.data.url;
+    } catch (error) {
+      console.error("Checkout error:", error);
+      toast.error("An error occurred during checkout. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  const toggleMessageArea = () => setShowMessageArea(!showMessageArea);
+  const toggleNoteArea = () => setShowNoteArea(!showNoteArea);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
@@ -117,12 +147,75 @@ const CartContent = ({ userId }: CartContentProps) => {
                 </div>
               </dl>
 
+              <div className="mt-8 space-y-4">
+                <div className="bg-pink-50 rounded-lg transition-all duration-300 hover:shadow-md">
+                  <button
+                    onClick={toggleMessageArea}
+                    className="w-full p-4 text-left focus:outline-none"
+                  >
+                    <h2 className="text-lg font-medium text-pink-800 flex items-center justify-between">
+                      <span className="flex items-center">
+                        <MessageCircle className="w-5 h-5 mr-2" />
+                        Add a Message
+                      </span>
+                      {showMessageArea ? (
+                        <ChevronUp className="w-5 h-5 text-pink-600" />
+                      ) : (
+                        <ChevronDown className="w-5 h-5 text-pink-600" />
+                      )}
+                    </h2>
+                  </button>
+                  {showMessageArea && (
+                    <div className="p-4 pt-0">
+                      <textarea
+                        className="w-full p-3 border border-pink-200 rounded-md focus:ring-2 focus:ring-pink-300 focus:border-pink-300 transition-all duration-300 placeholder-pink-300 text-pink-800 resize-none"
+                        placeholder="Enter a sweet message for the cake..."
+                        value={cakeMessage}
+                        onChange={(e) => setCakeMessage(e.target.value)}
+                        rows={3}
+                      />
+                    </div>
+                  )}
+                </div>
+
+                <div className="bg-blue-50 rounded-lg transition-all duration-300 hover:shadow-md">
+                  <button
+                    onClick={toggleNoteArea}
+                    className="w-full p-4 text-left focus:outline-none"
+                  >
+                    <h2 className="text-lg font-medium text-blue-800 flex items-center justify-between">
+                      <span className="flex items-center">
+                        <Pencil className="w-5 h-5 mr-2" />
+                        Add a Note
+                      </span>
+                      {showNoteArea ? (
+                        <ChevronUp className="w-5 h-5 text-blue-600" />
+                      ) : (
+                        <ChevronDown className="w-5 h-5 text-blue-600" />
+                      )}
+                    </h2>
+                  </button>
+                  {showNoteArea && (
+                    <div className="p-4 pt-0">
+                      <textarea
+                        className="w-full p-3 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-300 focus:border-blue-300 transition-all duration-300 placeholder-blue-300 text-blue-800 resize-none"
+                        placeholder="Any special instructions for your order?"
+                        value={note}
+                        onChange={(e) => setOrderNote(e.target.value)}
+                        rows={3}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+
               <div className="mt-6">
                 <Button
                   className="w-full bg-pink-600 hover:bg-pink-700 text-white py-3 text-lg"
                   onClick={onCheckOut}
+                  disabled={isLoading}
                 >
-                  Proceed to Checkout
+                  {isLoading ? "Processing..." : "Proceed to Checkout"}
                 </Button>
               </div>
             </div>

@@ -9,17 +9,13 @@ import {
   ShoppingCart,
   Heart,
   Cake,
-  Weight,
-  Tag,
   Info as InfoIcon,
   AlertTriangle,
-  Leaf,
   MapPin,
   Check,
   X,
   ChevronDown,
   ChevronUp,
-  Edit3,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -39,7 +35,6 @@ const Info: React.FC<InfoProps> = ({ product }) => {
   const [pincode, setPincode] = useState("");
   const [pincodeValid, setPincodeValid] = useState<boolean | null>(null);
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
-  const [cakeMessage, setCakeMessage] = useState("");
   const { isSignedIn } = useAuth();
 
   const discountedPrice = product.discount
@@ -270,29 +265,6 @@ const Info: React.FC<InfoProps> = ({ product }) => {
       </div>
 
       <div className="mb-6">
-        <h2 className="text-lg font-semibold text-gray-700 mb-2">
-          Personalize Your Cake
-        </h2>
-        <div className="relative">
-          <Edit3 className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-          <input
-            type="text"
-            value={cakeMessage}
-            onChange={(e) => setCakeMessage(e.target.value)}
-            placeholder="Enter name or message for the cake"
-            maxLength={50}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-500 transition-all duration-300"
-          />
-          <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-gray-400">
-            {cakeMessage.length}/50
-          </span>
-        </div>
-        <p className="text-sm text-gray-500 mt-2">
-          Your message will be elegantly written on the cake.
-        </p>
-      </div>
-
-      <div className="mb-6">
         <button
           onClick={() => setIsAccordionOpen(!isAccordionOpen)}
           className="flex justify-between items-center w-full p-4 bg-gray-100 rounded-md"
@@ -383,6 +355,14 @@ const Info: React.FC<InfoProps> = ({ product }) => {
           Buy Now
         </motion.button>
       </div>
+
+      <p className="text-center text-sm text-gray-500 mt-4">
+        Add a message or note for your cake on the{" "}
+        <a href="/cart" className="text-rose-500 font-bold">
+          cart
+        </a>{" "}
+        page.
+      </p>
 
       <p className="text-center text-sm text-gray-500 mt-4">
         Free delivery on orders over ₹1000
