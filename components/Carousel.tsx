@@ -41,6 +41,7 @@ const Carousel = () => {
             src={item.src}
             alt={item.alt}
             fill
+            sizes="(min-width: 640px) 640px, 100vw"
             className="rounded-lg shadow-2xl object-contain"
           />
         </div>

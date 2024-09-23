@@ -166,11 +166,11 @@ const Info: React.FC<InfoProps> = ({ product }) => {
               alt="Veg"
             />
           </motion.div>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-rose-700">
+          <h1 className="text-xl sm:text-3xl md:text-4xl font-bold text-rose-700">
             {product.name}
           </h1>
         </div>
-        <motion.button
+        {/* <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={() => setIsLiked(!isLiked)}
@@ -180,7 +180,7 @@ const Info: React.FC<InfoProps> = ({ product }) => {
           )}
         >
           <Heart className={cn("w-6 h-6", isLiked && "fill-current")} />
-        </motion.button>
+        </motion.button> */}
       </div>
 
       <div className="mb-6">
@@ -209,7 +209,7 @@ const Info: React.FC<InfoProps> = ({ product }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
-            className="bg-gray-50 rounded-md p-4 min-h-[100px]"
+            className="bg-gray-50 rounded-md p-4 min-h-[100px] sm:text-base text-sm"
           >
             {tabContent[activeTab as keyof typeof tabContent]}
           </motion.div>

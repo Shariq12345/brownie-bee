@@ -44,9 +44,9 @@ const ProductPage = async ({ params }: ProductPageProps) => {
             </Link>
             <ChevronRight className="size-5 text-muted-foreground" />
             {/* <Link
-              href={`/menu/${product.category}`}
-              className="flex items-center gap-2 text-muted-foreground cursor-default"
-            > */}
+                href={`/menu/${product.category}`}
+                className="flex items-center gap-2 text-muted-foreground cursor-default"
+              > */}
             <p className="flex items-center gap-2 text-muted-foreground cursor-default">
               {product.name}
             </p>
@@ -57,7 +57,7 @@ const ProductPage = async ({ params }: ProductPageProps) => {
           <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
             {/* GALLERY */}
             <Gallery images={product.images} />
-            <div className="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
+            <div className="mt-10 sm:mt-16 sm:px-0 lg:mt-0">
               {/* INFO */}
               <Info product={product} />
             </div>
