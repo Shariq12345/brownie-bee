@@ -110,12 +110,12 @@ const FeaturedContent: React.FC<FeaturedContentProps> = ({ data }) => {
           </div>
         </div>
       </Link>
-      <Button
+      {/* <Button
         onClick={() => router.push(`/menu/${data.id}`)}
         className="w-full bg-gray-800 hover:bg-gray-900 text-white py-2 sm:py-3 rounded-none transition-all duration-300 text-sm sm:text-base"
       >
         View Details
-      </Button>
+      </Button> */}
     </motion.div>
   );
 };

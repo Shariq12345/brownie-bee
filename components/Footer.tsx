@@ -14,19 +14,24 @@ const Footer = () => {
               Brownie Bee
             </h2>
             <p className="text-gray-600">
-              Delighting taste buds with our handcrafted cakes and pastries
-              since 2010.
+              Delighting taste buds with our handcrafted cakes and pastries.
             </p>
             <div className="flex space-x-4">
-              {[Instagram, Facebook, Twitter].map((Icon, index) => (
+              <Link
+                href={"https://www.instagram.com/brownie_beee/"}
+                className="text-rose-500 hover:text-rose-700 transition-colors duration-300"
+              >
+                <Instagram size={24} />
+              </Link>
+              {/* {[Instagram, Facebook, Twitter].map((Icon, index) => (
                 <a
                   key={index}
-                  href="#"
+                  href="https://www.instagram.com/brownie_beee/"
                   className="text-rose-500 hover:text-rose-700 transition-colors duration-300"
                 >
                   <Icon size={24} />
                 </a>
-              ))}
+              ))} */}
             </div>
           </div>
 
@@ -61,9 +66,9 @@ const Footer = () => {
             <ul className="space-y-2 text-gray-600">
               <li>
                 Shop Number.8 New Mill Road Safia Bai Building, Bazar Ward,
-                Kurla West, Mumbai, Maharashtra 400070
+                Kurla West, Mumbai-70
               </li>
-              <li>Phone: (123) 456-7890</li>
+              <li>Phone: +91 9867119576</li>
               <li>Email: hello@browniebee.com</li>
             </ul>
           </div>

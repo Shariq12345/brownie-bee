@@ -3,7 +3,7 @@ import { Orders } from "@/types";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { Package, CreditCard, Truck, CheckCircle, XCircle } from "lucide-react";
+import { Package, CreditCard, Truck, CheckCircle, Info } from "lucide-react";
 
 interface OrderItemProps {
   order: Orders;
@@ -11,10 +11,9 @@ interface OrderItemProps {
 
 const OrderItem = ({ order }: OrderItemProps) => {
   const orderSteps = [
-    { status: "Processing", icon: Package, label: "Processing" },
-    { status: "Delivering", icon: Truck, label: "Delivering" },
-    { status: "Delivered", icon: CheckCircle, label: "Delivered" },
-    { status: "Cancelled", icon: XCircle, label: "Cancelled" },
+    { status: "PROCESSING", icon: Package, label: "PROCESSING" },
+    { status: "Delivering", icon: Truck, label: "DELIVERING" },
+    { status: "Delivered", icon: CheckCircle, label: "DELIVERED" },
   ];
 
   const currentStepIndex = orderSteps.findIndex(
@@ -22,10 +21,11 @@ const OrderItem = ({ order }: OrderItemProps) => {
   );
 
   const getProgressWidth = () => {
-    if (order.order_status === "Cancelled") return "100%";
     if (currentStepIndex === -1) return "0%";
-    return `${(currentStepIndex / (orderSteps.length - 2)) * 100}%`;
+    return `${(currentStepIndex / (orderSteps.length - 1)) * 100}%`;
   };
+
+  console.log(order.order_status);
 
   return (
     <Card className="w-full overflow-hidden transition-all hover:shadow-lg">
@@ -87,12 +87,10 @@ const OrderItem = ({ order }: OrderItemProps) => {
                   "text-sm font-medium py-1 px-2 rounded-full",
                   order.order_status === "Delivering" &&
                     "bg-yellow-100 text-yellow-700",
-                  order.order_status === "Processing" &&
+                  order.order_status === "PROCESSING" &&
                     "bg-blue-100 text-blue-700",
                   order.order_status === "Delivered" &&
-                    "bg-green-100 text-green-700",
-                  order.order_status === "Cancelled" &&
-                    "bg-red-100 text-red-700"
+                    "bg-green-100 text-green-700"
                 )}
               >
                 {order.order_status}
@@ -122,42 +120,27 @@ const OrderItem = ({ order }: OrderItemProps) => {
                 style={{ width: getProgressWidth() }}
                 className={cn(
                   "shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center transition-all duration-500",
-                  order.order_status === "Cancelled"
-                    ? "bg-red-500"
-                    : "bg-blue-500"
+                  "bg-[#fe8fa1]"
                 )}
               ></div>
             </div>
             <div className="flex justify-between">
               {orderSteps.map((step, index) => {
                 const Icon = step.icon;
-                const isActive =
-                  index <= currentStepIndex ||
-                  order.order_status === "Cancelled";
-                const isCancelled =
-                  order.order_status === "Cancelled" &&
-                  index === orderSteps.length - 1;
+                const isActive = index <= currentStepIndex;
                 return (
-                  <div
-                    key={index}
-                    className={cn(
-                      "flex flex-col items-center",
-                      index === 3 && "hidden md:flex"
-                    )}
-                  >
+                  <div key={index} className="flex flex-col items-center">
                     <div
                       className={cn(
                         "rounded-full p-2",
                         isActive
-                          ? isCancelled
-                            ? "bg-red-500 text-white"
-                            : "bg-blue-500 text-white"
+                          ? "bg-[#fe8fa1] text-white"
                           : "bg-gray-200 text-gray-400"
                       )}
                     >
                       <Icon size={16} />
                     </div>
-                    <span className="text-xs mt-1 text-center">
+                    <span className="text-xs mt-1 text-center font-bold">
                       {step.label}
                     </span>
                   </div>
@@ -166,6 +149,24 @@ const OrderItem = ({ order }: OrderItemProps) => {
             </div>
           </div>
         </div>
+
+        {(order.order_status === "PROCESSING" ||
+          order.order_status === "Delivering") && (
+          <div className="mt-4 flex items-center space-x-2 text-blue-600">
+            <Info size={18} />
+            <span className="text-sm">
+              If you want to cancel the order, please contact the store.
+            </span>
+          </div>
+        )}
+
+        {/* Info Message for Cancelling */}
+        {/* <div className="mt-4 flex items-center space-x-2 text-blue-600">
+          <Info size={18} />
+          <span className="text-sm">
+            If you want to cancel the order, please contact the store.
+          </span>
+        </div> */}
       </CardContent>
     </Card>
   );

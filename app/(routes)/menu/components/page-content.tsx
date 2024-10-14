@@ -78,7 +78,7 @@ const PageContent = ({ products }: PageContentProps) => {
         </Box>
       </Box>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full h-full gap-4 gap-y-20">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full h-full gap-4 gap-y-10">
         {products.length > 0 ? (
           <>
             {products.map((product) => (

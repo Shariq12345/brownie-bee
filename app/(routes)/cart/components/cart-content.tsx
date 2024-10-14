@@ -48,10 +48,6 @@ const CartContent = ({ userId }: CartContentProps) => {
   const onCheckOut = async () => {
     setIsLoading(true);
     try {
-      console.log(
-        "Attempting to checkout with URL:",
-        `${process.env.NEXT_PUBLIC_API_URL}/checkout`
-      );
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/checkout`,
         {

@@ -10,6 +10,7 @@ import { Button } from "./ui/button";
 import MainNav from "./MainNav";
 import CartButton from "./cart-button";
 import { Menu, Search } from "lucide-react";
+import Image from "next/image";
 
 type Props = {
   userId: string | null;
@@ -58,7 +59,7 @@ const Header = ({ userId }: Props) => {
               href="/"
               className="uppercase flex gap-x-2 font-bold text-neutral-700 text-lg md:text-xl"
             >
-              Brownie Bee
+              <Image src={"/img/logo.png"} alt="" width={100} height={120} />
             </Link>
 
             {/* Desktop Navigation */}

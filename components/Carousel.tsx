@@ -42,11 +42,11 @@ const Carousel = () => {
             alt={item.alt}
             fill
             sizes="(min-width: 640px) 640px, 100vw"
-            className="rounded-lg shadow-2xl object-contain"
+            className="rounded-lg object-contain"
           />
         </div>
       ))}
-      <button
+      {/* <button
         onClick={prevSlide}
         className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-20 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
         aria-label="Previous slide"
@@ -59,7 +59,7 @@ const Carousel = () => {
         aria-label="Next slide"
       >
         <ChevronRight className="w-6 h-6" />
-      </button>
+      </button> */}
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
         {carouselItems.map((_, index) => (
           <button

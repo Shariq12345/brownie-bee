@@ -7,6 +7,7 @@ import FeaturedContent from "@/components/featured-content";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { CakeIcon, GiftIcon, Star } from "lucide-react";
 import Carousel from "@/components/Carousel";
+import Image from "next/image";
 
 export const revalidate = 0;
 
@@ -37,7 +38,13 @@ const HomePage = async () => {
               </div>
             </div>
             <div className="w-full lg:w-1/2 mt-8 lg:mt-0">
-              <Carousel />
+              <Image
+                src={"/img/pastries.jpg"}
+                alt={""}
+                width={600}
+                height={600}
+              />
+              {/* <Carousel /> */}
             </div>
           </div>
         </Container>
