@@ -97,8 +97,8 @@ const MenuPage = async ({ searchParams }: MenuPageProps) => {
           </div>
 
           {/* Product Content */}
-          <div className="w-full lg:w-3/4 xl:w-4/5">
-            <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 transition-all duration-300 hover:shadow-md">
+          <div className="w-full lg:w-3/4 xl:w-4/5 ">
+            <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 transition-all duration-300 hover:shadow-md border">
               <SearchBar />
               <PageContent products={products} />
             </div>

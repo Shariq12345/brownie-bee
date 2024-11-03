@@ -39,7 +39,7 @@ const PageContent = ({ products }: PageContentProps) => {
           </Link>
           <ChevronRight className="size-5 text-muted-foreground" />
           <Link href={"/menu"} className="flex items-center gap-2">
-            Products
+            Menu
           </Link>
 
           {searchParams.get("category") && (

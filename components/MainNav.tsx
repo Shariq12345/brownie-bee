@@ -7,10 +7,9 @@ import { useMedia } from "react-use";
 import { Sheet, SheetContent } from "./ui/sheet";
 import { Button } from "./ui/button";
 import { useAuth, UserButton } from "@clerk/nextjs";
-import CartButton from "./cart-button";
 
 interface MainNavProps extends React.HTMLAttributes<HTMLElement> {
-  scrolled: boolean;
+  scrolled?: boolean;
   isMobileMenuOpen: boolean;
   setIsMobileMenuOpen: (isOpen: boolean) => void;
 }
@@ -89,7 +88,7 @@ const MainNav = ({
     <div className="ml-auto">
       <nav
         className={cn(
-          "flex items-center space-x-4 lg:space-x-12 pl-6",
+          "flex items-center space-x-4 lg:space-x-12 pl-6 pr-4",
           className
         )}
       >

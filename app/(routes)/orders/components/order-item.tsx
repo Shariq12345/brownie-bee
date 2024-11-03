@@ -1,9 +1,12 @@
+"use client";
+
 import React from "react";
 import { Orders } from "@/types";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Package, CreditCard, Truck, CheckCircle, Info } from "lucide-react";
+import OrderReceiptGenerator from "./order-receipt-generator";
 
 interface OrderItemProps {
   order: Orders;
@@ -24,8 +27,6 @@ const OrderItem = ({ order }: OrderItemProps) => {
     if (currentStepIndex === -1) return "0%";
     return `${(currentStepIndex / (orderSteps.length - 1)) * 100}%`;
   };
-
-  console.log(order.order_status);
 
   return (
     <Card className="w-full overflow-hidden transition-all hover:shadow-lg">
@@ -160,13 +161,7 @@ const OrderItem = ({ order }: OrderItemProps) => {
           </div>
         )}
 
-        {/* Info Message for Cancelling */}
-        {/* <div className="mt-4 flex items-center space-x-2 text-blue-600">
-          <Info size={18} />
-          <span className="text-sm">
-            If you want to cancel the order, please contact the store.
-          </span>
-        </div> */}
+        {order.isPaid && <OrderReceiptGenerator order={order} />}
       </CardContent>
     </Card>
   );

@@ -40,7 +40,7 @@ const ProductPage = async ({ params }: ProductPageProps) => {
               href={"/menu"}
               className="flex items-center gap-2 text-muted-foreground"
             >
-              Products
+              Menu
             </Link>
             <ChevronRight className="size-5 text-muted-foreground" />
             {/* <Link

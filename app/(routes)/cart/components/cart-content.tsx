@@ -11,7 +11,7 @@ import {
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import CartItem from "./cart-item";
 import { Separator } from "@/components/ui/separator";
@@ -23,6 +23,7 @@ interface CartContentProps {
 
 const CartContent = ({ userId }: CartContentProps) => {
   const cart = useCart();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const [cakeMessage, setCakeMessage] = useState("");
   const [note, setOrderNote] = useState("");
@@ -42,6 +43,11 @@ const CartContent = ({ userId }: CartContentProps) => {
 
     if (searchParams.get("cancelled")) {
       toast.error("Something went wrong. Please try again");
+    }
+
+    if (searchParams.get("success") || searchParams.get("cancelled")) {
+      const newUrl = window.location.pathname;
+      router.replace(newUrl); // Replace the current URL with one without query params
     }
   }, [searchParams, cart.removeAll]);
 

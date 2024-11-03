@@ -9,7 +9,7 @@ import { UserButton } from "@clerk/nextjs";
 import { Button } from "./ui/button";
 import MainNav from "./MainNav";
 import CartButton from "./cart-button";
-import { Menu, Search } from "lucide-react";
+import { Menu } from "lucide-react";
 import Image from "next/image";
 
 type Props = {
@@ -17,16 +17,14 @@ type Props = {
 };
 
 const Header = ({ userId }: Props) => {
-  const [scrollRatio, setScrollRatio] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const isMobile = useMedia("(max-width: 1024px)", false);
   const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const ratio = Math.min(scrollTop / 100, 1); // Full effect after 100px of scroll
-      setScrollRatio(ratio);
+      setIsScrolled(window.scrollY > 0); // Set true if scrolled down
     };
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -43,14 +41,12 @@ const Header = ({ userId }: Props) => {
       <header
         className={cn(
           "w-full z-50 transition-all duration-300 ease-in-out fixed top-0 left-0",
-          "bg-white shadow-lg"
+          "bg-white shadow-sm", // Default to white background
+          {
+            "bg-white shadow-md": isScrolled, // Add shadow when scrolled
+            "bg-transparent": !isScrolled, // Make transparent if not scrolled
+          }
         )}
-        style={{
-          backgroundColor: `rgba(255, 255, 255, ${scrollRatio})`,
-          boxShadow: `0 4px 6px -1px rgba(0, 0, 0, ${
-            scrollRatio * 0.1
-          }), 0 2px 4px -1px rgba(0, 0, 0, ${scrollRatio * 0.06})`,
-        }}
       >
         <Container>
           <div className="flex relative px-4 sm:px-6 lg:px-12 h-16 items-center justify-between">
@@ -66,19 +62,10 @@ const Header = ({ userId }: Props) => {
             {!isMobile && (
               <>
                 <MainNav
-                  scrolled={scrollRatio > 0}
                   isMobileMenuOpen={isMobileMenuOpen}
                   setIsMobileMenuOpen={setIsMobileMenuOpen}
                 />
                 <div className="flex items-center space-x-4">
-                  {/* Search Icon */}
-                  <button
-                    onClick={handleSearchClick}
-                    className="focus:outline-none transition-transform duration-200 ease-in-out hover:scale-110 ml-5 mr-2"
-                    aria-label="Search"
-                  >
-                    <Search className="h-5 w-5 text-black" />
-                  </button>
                   {userId ? (
                     <UserButton />
                   ) : (
@@ -101,13 +88,6 @@ const Header = ({ userId }: Props) => {
             {/* Mobile Navigation */}
             {isMobile && (
               <div className="flex items-center space-x-4">
-                {/* <button
-                  onClick={handleSearchClick}
-                  className="focus:outline-none transition-transform duration-200 ease-in-out hover:scale-110"
-                  aria-label="Search"
-                >
-                  <Search className="h-5 w-5 text-neutral-700" />
-                </button> */}
                 {userId ? (
                   <UserButton />
                 ) : (
@@ -118,7 +98,6 @@ const Header = ({ userId }: Props) => {
                   </Link>
                 )}
                 {userId && <CartButton />}
-                {/* Search Icon */}
                 <Button
                   variant="ghost"
                   size="sm"
@@ -134,7 +113,6 @@ const Header = ({ userId }: Props) => {
           {/* Mobile Menu */}
           {isMobile && (
             <MainNav
-              scrolled={scrollRatio > 0}
               isMobileMenuOpen={isMobileMenuOpen}
               setIsMobileMenuOpen={setIsMobileMenuOpen}
             />

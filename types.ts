@@ -59,4 +59,5 @@ export interface Orders {
   userId: string;
   cakeMessage?: string; // Message to write on the cake
   note?: string; // Additional note
+  createdAt: string;
 }

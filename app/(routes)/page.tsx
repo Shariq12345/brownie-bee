@@ -43,6 +43,7 @@ const HomePage = async () => {
                 alt={""}
                 width={600}
                 height={600}
+                className="rounded-xl"
               />
               {/* <Carousel /> */}
             </div>
